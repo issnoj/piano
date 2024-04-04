@@ -7,7 +7,6 @@ export const STAFF_LINE_ZERO_Y = 140;
 export const STAFF_LINE_HEIGHT = 20;
 const ACCIDENTAL_WIDTH = 16;
 const NOTE_TRANSLATE_X = 28;
-const NOTE_AREA_WIDTH = 100;
 const STAFF_LEFT_WIDTH = 120;
 export const NOTE_WIDTH = 45;
 
@@ -15,18 +14,18 @@ type Props = {
   id?: string;
   className?: string;
   chords?: Chord[];
-  gap?: number;
   size?: number;
   height?: number;
+  noteAreaWidth?: number;
 };
 
 export const Staff = ({
   id,
   className,
   chords = [],
-  gap = 100,
   size = 12,
   height = 220,
+  noteAreaWidth = 100,
 }: Props) => {
   const scale = size / STAFF_LINE_HEIGHT;
   const lineTop = 39.5;
@@ -35,14 +34,14 @@ export const Staff = ({
   let bottom = 0;
 
   const staffChordProps = chords.map((chord, index) => {
-    const staffChord = getStaffChord({ chord });
+    const staffChord = getStaffChord({ chord, noteAreaWidth });
     width += staffChord.areaWidth;
     adjustTranslateX += staffChord.adjustTranslateX;
     bottom = Math.max(bottom, staffChord.bottom);
     return {
       chord,
       staffNoteProps: staffChord.staffNoteProps,
-      translateX: adjustTranslateX + index * gap,
+      translateX: adjustTranslateX + index * noteAreaWidth,
       bottom,
     };
   });
@@ -95,8 +94,10 @@ export const Staff = ({
 
 const getStaffChord = ({
   chord,
+  noteAreaWidth,
 }: {
   chord: Chord;
+  noteAreaWidth: number;
 }): {
   staffNoteProps: StaffNoteProp[];
   areaWidth: number;
@@ -150,7 +151,7 @@ const getStaffChord = ({
 
   const adjustTranslateX = -minTranslateX;
 
-  const areaWidth = NOTE_AREA_WIDTH - minTranslateX + maxTranslateX;
+  const areaWidth = noteAreaWidth - minTranslateX + maxTranslateX;
 
   return {
     staffNoteProps,

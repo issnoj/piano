@@ -14,8 +14,6 @@ export type Accidental =
   | 'neutral'
   | undefined;
 
-export type PianoChordName = '7';
-
 export type BaseNote = {
   id: BaseNoteId;
   number: number;
@@ -44,7 +42,33 @@ export type Scale = {
   notes: Note[];
 };
 
-export type Chord = {
-  notes: Note[];
+export type ChordTypeId =
+  | 'majorTriad'
+  | 'majorSixth'
+  | 'dominantSeventh'
+  | 'majorSeventh'
+  | 'augmentedTriad'
+  | 'augmentedSeventh'
+  | 'minorTriad'
+  | 'minorSixth'
+  | 'minorSeventh'
+  | 'minorMajorSeventh'
+  | 'diminishedTriad'
+  | 'diminishedSeventh'
+  | 'halfDiminishedSeventh';
+
+export type ChordType = {
   name: string;
+  nameEn: string;
+  symbol?: string;
+  intervals: Array<{
+    number: number;
+    integer: number;
+  }>;
+};
+
+export type Chord = {
+  name: string;
+  type?: ChordType;
+  notes: Note[];
 };

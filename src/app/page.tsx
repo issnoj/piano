@@ -2,6 +2,28 @@ import { Staff } from '@/components/staff/staff';
 import { piano } from '@/lib/piano';
 import { Accidental, BaseNoteId, ScaleTypeId } from '@/lib/piano/types';
 
+type Chord = {
+  id: BaseNoteId;
+  octave: number;
+  accidental?: Accidental;
+};
+
+// コード
+const chords: Chord[] = [
+  { id: 'c', octave: 4 },
+  { id: 'd', octave: 4, accidental: 'flat' },
+  { id: 'd', octave: 4 },
+  { id: 'e', octave: 4, accidental: 'flat' },
+  { id: 'e', octave: 4 },
+  { id: 'f', octave: 4 },
+  { id: 'f', octave: 4, accidental: 'sharp' },
+  { id: 'g', octave: 4 },
+  { id: 'a', octave: 4, accidental: 'flat' },
+  { id: 'a', octave: 4 },
+  { id: 'b', octave: 3, accidental: 'flat' },
+  { id: 'b', octave: 3 },
+];
+
 type Scale = {
   id: BaseNoteId;
   octave: number;
@@ -9,7 +31,7 @@ type Scale = {
   type: ScaleTypeId;
 };
 
-// フラット系
+// スケール：フラット系
 const flatScales: Scale[] = [
   { id: 'c', octave: 4, type: 'major' },
   { id: 'a', octave: 3, type: 'minor' },
@@ -27,7 +49,7 @@ const flatScales: Scale[] = [
   { id: 'e', octave: 4, accidental: 'flat', type: 'minor' },
 ];
 
-// シャープ系
+// スケール：シャープ系
 const sharpScales: Scale[] = [
   { id: 'b', octave: 3, type: 'major' },
   { id: 'g', octave: 4, accidental: 'sharp', type: 'minor' },
@@ -110,6 +132,47 @@ export default function Home() {
         ]}
       />
 
+      <h1 className="text-xl font-bold">Chord</h1>
+      <table>
+        <tbody>
+          {chords.map((v, i) => {
+            const pianoNote = piano.note({
+              baseNoteId: v.id,
+              octave: v.octave,
+              accidental: v.accidental,
+            });
+            return (
+              <tr key={i}>
+                <th className={'px-8 pt-10 align-top'}>
+                  {pianoNote.getName('en')}
+                </th>
+                <td className="pb-8">
+                  <Staff
+                    id="test"
+                    noteAreaWidth={120}
+                    chords={[
+                      piano.chord(pianoNote, 'majorTriad'),
+                      piano.chord(pianoNote, 'majorSixth'),
+                      piano.chord(pianoNote, 'dominantSeventh'),
+                      piano.chord(pianoNote, 'majorSeventh'),
+                      piano.chord(pianoNote, 'augmentedTriad'),
+                      piano.chord(pianoNote, 'augmentedSeventh'),
+                      piano.chord(pianoNote, 'minorTriad'),
+                      piano.chord(pianoNote, 'minorSixth'),
+                      piano.chord(pianoNote, 'minorSeventh'),
+                      piano.chord(pianoNote, 'minorMajorSeventh'),
+                      piano.chord(pianoNote, 'diminishedTriad'),
+                      piano.chord(pianoNote, 'diminishedSeventh'),
+                      piano.chord(pianoNote, 'halfDiminishedSeventh'),
+                    ]}
+                  />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+
       <h1 className={'text-xl font-bold'}>Scale</h1>
       <div className="flex gap-4">
         <table>
@@ -123,7 +186,7 @@ export default function Home() {
               const scale = piano.scale(pianoNote, v.type);
               return (
                 <tr key={i}>
-                  <th className={'pr-8 pt-4 align-top'}>
+                  <th className={'px-8 pt-4 align-top'}>
                     {scale.name}
                     <br />
                     {scale.nameEn}
