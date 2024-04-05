@@ -46,7 +46,7 @@ export class Note {
       if (this.accidental === 'sharp') {
         name += 'is';
       } else if (this.accidental === 'dsharp') {
-        name += '♯♯';
+        name += 'isis';
       } else if (this.accidental === 'flat') {
         if (name === 'E' || name === 'A') {
           name += 's';
@@ -56,7 +56,11 @@ export class Note {
           name += 'es';
         }
       } else if (this.accidental === 'dflat') {
-        name += '♭♭';
+        if (name === 'E' || name === 'A') {
+          name += 'ses';
+        } else {
+          name += 'eses';
+        }
       }
     } else {
       if (this.accidental === 'sharp') {

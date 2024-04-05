@@ -27,6 +27,7 @@ export type BaseNoteId = 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b';
 export type ScaleTypeId = 'major' | 'minor' | 'harmonicMinor' | 'melodicMinor';
 
 export type ScaleType = {
+  id: ScaleTypeId;
   shortName: string;
   name: string;
   nameEn: string;
@@ -35,6 +36,7 @@ export type ScaleType = {
 };
 
 export type Scale = {
+  shortName: string;
   name: string;
   nameEn: string;
   nameDe: string;

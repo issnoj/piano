@@ -32,9 +32,17 @@ export function scale(pianoNote: Note, type: ScaleTypeId): Scale {
   } else if (pianoNote.accidental === 'flat') {
     namePrefix = '変';
   }
-  const name = `${namePrefix}${pianoNote.name.ja[1]}${scaleType.shortName}`;
+  const shortName = `${namePrefix}${pianoNote.name.ja[1]}${scaleType.shortName}`;
+  const name = `${namePrefix}${pianoNote.name.ja[1]}${scaleType.name}`;
   const nameEn = `${pianoNote.getName('en')} ${scaleType.nameEn}`;
   const nameDe = `${pianoNote.getName('de')} ${scaleType.nameDe}`;
 
-  return { name, nameEn, nameDe, type: scaleType, notes: pianoNotes };
+  return {
+    shortName,
+    name,
+    nameEn,
+    nameDe,
+    type: scaleType,
+    notes: pianoNotes,
+  };
 }

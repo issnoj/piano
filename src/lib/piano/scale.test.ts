@@ -11,7 +11,7 @@ describe('piano.scale', () => {
     });
     const result = scale(note, 'minor');
 
-    expect(result.name).toBe('変ト短調');
+    expect(result.shortName).toBe('変ト短調');
   });
 
   test('minor', () => {
@@ -22,7 +22,8 @@ describe('piano.scale', () => {
     });
     const result = scale(note, 'minor');
 
-    expect(result.name).toBe('嬰ト短調');
+    expect(result.shortName).toBe('嬰ト短調');
+    expect(result.name).toBe('嬰ト自然短音階');
     expect(result.nameEn).toBe('G♯ Minor');
     expect(result.nameDe).toBe('Gis Moll');
     expect(result.type).toBe(scaleTypes.minor);

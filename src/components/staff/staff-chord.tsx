@@ -7,6 +7,7 @@ export type StaffChordProp = {
   staffNoteProps: StaffNoteProp[];
   translateX: number;
   bottom: number;
+  fontSize: number;
 };
 
 export const StaffChord = ({
@@ -14,6 +15,7 @@ export const StaffChord = ({
   staffNoteProps,
   translateX,
   bottom,
+  fontSize,
 }: StaffChordProp) => {
   return (
     <g
@@ -46,7 +48,7 @@ export const StaffChord = ({
           x={NOTE_WIDTH / 2}
           y={bottom}
           fill="black"
-          fontSize={28}
+          fontSize={fontSize}
           textAnchor="middle"
         >
           {chord.name}

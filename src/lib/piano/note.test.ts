@@ -204,6 +204,34 @@ describe('piano.note', () => {
     expect(note.accidental).toBe('sharp');
 
     note = new Note({
+      baseNoteId: 'c',
+      octave: 4,
+      accidental: 'dflat',
+    });
+    expect(note.number).toBe(0);
+    expect(note.getName('ja')).toBe('ド♭♭');
+    expect(note.getName('en')).toBe('C♭♭');
+    expect(note.getName('de')).toBe('Ceses');
+    expect(note.octave).toBe(4);
+    expect(note.integer).toBe(-2);
+    expect(note.position).toBe(0);
+    expect(note.accidental).toBe('dflat');
+
+    note = new Note({
+      baseNoteId: 'e',
+      octave: 4,
+      accidental: 'dflat',
+    });
+    expect(note.number).toBe(2);
+    expect(note.getName('ja')).toBe('ミ♭♭');
+    expect(note.getName('en')).toBe('E♭♭');
+    expect(note.getName('de')).toBe('Eses');
+    expect(note.octave).toBe(4);
+    expect(note.integer).toBe(2);
+    expect(note.position).toBe(1);
+    expect(note.accidental).toBe('dflat');
+
+    note = new Note({
       baseNoteId: 'b',
       octave: 4,
       accidental: 'dflat',
@@ -211,7 +239,7 @@ describe('piano.note', () => {
     expect(note.number).toBe(6);
     expect(note.getName('ja')).toBe('シ♭♭');
     expect(note.getName('en')).toBe('B♭♭');
-    expect(note.getName('de')).toBe('H♭♭');
+    expect(note.getName('de')).toBe('Heses');
     expect(note.octave).toBe(4);
     expect(note.integer).toBe(9);
     expect(note.position).toBe(3);
@@ -225,7 +253,7 @@ describe('piano.note', () => {
     expect(note.number).toBe(6);
     expect(note.getName('ja')).toBe('シ♯♯');
     expect(note.getName('en')).toBe('B♯♯');
-    expect(note.getName('de')).toBe('H♯♯');
+    expect(note.getName('de')).toBe('Hisis');
     expect(note.octave).toBe(4);
     expect(note.integer).toBe(13);
     expect(note.position).toBe(3);

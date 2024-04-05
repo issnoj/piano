@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { cn } from '@/lib/utils';
+import React from 'react';
+import { Side } from './side';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -26,8 +28,30 @@ export default function RootLayout({
           inter.variable,
         )}
       >
-        {children}
+        <Header className="flex h-9 items-center border-b px-2 shadow-sm lg:px-4" />
+        <div className="flex">
+          <Side className="shrink-0 space-y-4 py-4" />
+          <Main className="border-l">{children}</Main>
+        </div>
       </body>
     </html>
   );
 }
+
+const Header = ({ className }: { className?: string }) => {
+  return (
+    <div className={cn(className)}>
+      <h1 className="font-bold">Piano</h1>
+    </div>
+  );
+};
+
+const Main = ({
+  className,
+  children,
+}: {
+  className?: string;
+  children: React.ReactNode;
+}) => {
+  return <main className={cn(className)}>{children}</main>;
+};
