@@ -30,7 +30,7 @@ export default function RootLayout({
       >
         <Header className="flex h-9 items-center border-b px-2 shadow-sm lg:px-4" />
         <div className="flex">
-          <Side className="shrink-0 space-y-4 py-4" />
+          <Side className="h-[calc(100vh-36px)] shrink-0 space-y-4 py-4" />
           <Main className="border-l">{children}</Main>
         </div>
       </body>

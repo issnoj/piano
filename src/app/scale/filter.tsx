@@ -25,8 +25,8 @@ export const Filter = ({
   );
 
   const handleChangeNote = React.useCallback(
-    (value: FilterState['baseNoteIds'][0]) => {
-      onChangeNotes([value]);
+    (value: FilterState['baseNoteIds'][0] | '') => {
+      onChangeNotes(value ? [value] : []);
     },
     [onChangeNotes],
   );
