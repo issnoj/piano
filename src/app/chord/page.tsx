@@ -1,27 +1,27 @@
 import { Staff } from '@/components/staff/staff';
 import { piano } from '@/lib/piano';
-import { Accidental, BaseNoteId } from '@/lib/piano/types';
+import { Accidental, StepValue } from '@/lib/piano/types';
 
 type Chord = {
-  id: BaseNoteId;
+  id: StepValue;
   octave: number;
   accidental?: Accidental;
 };
 
 // コード
 const chords: Chord[] = [
-  { id: 'c', octave: 4 },
-  { id: 'd', octave: 4, accidental: 'flat' },
-  { id: 'd', octave: 4 },
-  { id: 'e', octave: 4, accidental: 'flat' },
-  { id: 'e', octave: 4 },
-  { id: 'f', octave: 4 },
-  { id: 'f', octave: 4, accidental: 'sharp' },
-  { id: 'g', octave: 4 },
-  { id: 'a', octave: 4, accidental: 'flat' },
-  { id: 'a', octave: 4 },
-  { id: 'b', octave: 3, accidental: 'flat' },
-  { id: 'b', octave: 3 },
+  { id: 'C', octave: 4 },
+  { id: 'D', octave: 4, accidental: 'flat' },
+  { id: 'D', octave: 4 },
+  { id: 'E', octave: 4, accidental: 'flat' },
+  { id: 'E', octave: 4 },
+  { id: 'F', octave: 4 },
+  { id: 'F', octave: 4, accidental: 'sharp' },
+  { id: 'G', octave: 4 },
+  { id: 'A', octave: 4, accidental: 'flat' },
+  { id: 'A', octave: 4 },
+  { id: 'B', octave: 3, accidental: 'flat' },
+  { id: 'B', octave: 3 },
 ];
 
 export default function Page() {
@@ -32,7 +32,7 @@ export default function Page() {
         <tbody>
           {chords.map((v, i) => {
             const pianoNote = piano.note({
-              baseNoteId: v.id,
+              stepValue: v.id,
               octave: v.octave,
               accidental: v.accidental,
             });

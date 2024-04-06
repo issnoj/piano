@@ -4,7 +4,7 @@ import { Note } from './note';
 describe('piano.chord', () => {
   test('chord', () => {
     let note = new Note({
-      baseNoteId: 'd',
+      stepValue: 'D',
       octave: 4,
     });
     let result = chord(note, 'dominantSeventh');
@@ -12,26 +12,26 @@ describe('piano.chord', () => {
     expect(result.name).toBe('D7');
     expect(result.notes).toStrictEqual([
       new Note({
-        baseNoteId: 'd',
+        stepValue: 'D',
         octave: 4,
       }),
       new Note({
-        baseNoteId: 'f',
+        stepValue: 'F',
         octave: 4,
         accidental: 'sharp',
       }),
       new Note({
-        baseNoteId: 'a',
+        stepValue: 'A',
         octave: 4,
       }),
       new Note({
-        baseNoteId: 'c',
+        stepValue: 'C',
         octave: 5,
       }),
     ]);
 
     note = new Note({
-      baseNoteId: 'd',
+      stepValue: 'D',
       octave: 4,
     });
     result = chord(note, 'majorTriad');

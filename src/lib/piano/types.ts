@@ -1,28 +1,29 @@
 import { Note } from './note';
 
-export type NoteName = {
-  ja: string[];
-  en: string[];
-  de: string[];
-};
+/**
+ * 音の名前
+ * {@link https://www.w3.org/2021/06/musicxml40/musicxml-reference/data-types/step/}
+ */
+export type StepValue = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G';
 
-export type Accidental =
-  | 'sharp'
-  | 'dsharp'
-  | 'flat'
-  | 'dflat'
-  | 'neutral'
-  | undefined;
+/**
+ * オクターブ
+ * {@link https://www.w3.org/2021/06/musicxml40/musicxml-reference/data-types/octave/}
+ */
+export type Octave = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
-export type BaseNote = {
-  id: BaseNoteId;
+export type Step = {
+  value: StepValue;
   number: number;
   integer: number;
   position: number;
-  name: NoteName;
+  name: {
+    ja: string;
+    iroha: string;
+    en: string;
+    de: string;
+  };
 };
-
-export type BaseNoteId = 'c' | 'd' | 'e' | 'f' | 'g' | 'a' | 'b';
 
 export type ScaleTypeId = 'major' | 'minor' | 'harmonicMinor' | 'melodicMinor';
 
@@ -42,6 +43,7 @@ export type Scale = {
   nameDe: string;
   type: ScaleType;
   notes: Note[];
+  fifths: number;
 };
 
 export type ChordTypeId =
@@ -74,3 +76,11 @@ export type Chord = {
   type?: ChordType;
   notes: Note[];
 };
+
+export type Accidental =
+  | 'sharp'
+  | 'dsharp'
+  | 'flat'
+  | 'dflat'
+  | 'neutral'
+  | undefined;

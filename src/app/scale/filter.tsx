@@ -1,6 +1,6 @@
 import React from 'react';
-import { baseNotes, scaleTypes } from '@/lib/piano/const';
 import { cn } from '@/lib/utils';
+import { steps, scaleTypes } from '@/lib/piano/consts';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { FilterState } from './content';
 
@@ -67,13 +67,13 @@ export const Filter = ({
           size="sm"
           defaultValue={initialState.baseNoteIds[0]}
         >
-          {Object.values(baseNotes).map((v) => (
+          {Object.values(steps).map((v) => (
             <StyledToggleGroupItem
-              key={v.id}
-              value={v.id}
+              key={v.value}
+              value={v.value}
               aria-label={`Toggle ${v.name}`}
             >
-              {v.name.ja[1]}
+              {v.name.iroha}
             </StyledToggleGroupItem>
           ))}
         </ToggleGroup>

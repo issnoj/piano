@@ -3,157 +3,154 @@ import { note, getBaseNoteByNumber, Note, getAccidental } from './note';
 describe('piano.note', () => {
   test('getBaseNoteByNumber', () => {
     const baseNote = getBaseNoteByNumber(0);
-    expect(baseNote?.id === 'c').toBe(true);
+    expect(baseNote?.value === 'C').toBe(true);
   });
 
   test('getAccidental', () => {
     for (let i = -10; i < 11; i++) {
-      expect(getAccidental('c', -2 + i * 12)).toBe('dflat');
-      expect(getAccidental('c', -1 + i * 12)).toBe('flat');
-      expect(getAccidental('c', i * 12)).toBe(undefined);
-      expect(getAccidental('c', 1 + i * 12)).toBe('sharp');
-      expect(getAccidental('c', 2 + i * 12)).toBe('dsharp');
+      expect(getAccidental('C', -2 + i * 12)).toBe('dflat');
+      expect(getAccidental('C', -1 + i * 12)).toBe('flat');
+      expect(getAccidental('C', i * 12)).toBe(undefined);
+      expect(getAccidental('C', 1 + i * 12)).toBe('sharp');
+      expect(getAccidental('C', 2 + i * 12)).toBe('dsharp');
 
-      expect(getAccidental('d', i * 12)).toBe('dflat');
-      expect(getAccidental('d', 1 + i * 12)).toBe('flat');
-      expect(getAccidental('d', 2 + i * 12)).toBe(undefined);
-      expect(getAccidental('d', 3 + i * 12)).toBe('sharp');
-      expect(getAccidental('d', 4 + i * 12)).toBe('dsharp');
+      expect(getAccidental('D', i * 12)).toBe('dflat');
+      expect(getAccidental('D', 1 + i * 12)).toBe('flat');
+      expect(getAccidental('D', 2 + i * 12)).toBe(undefined);
+      expect(getAccidental('D', 3 + i * 12)).toBe('sharp');
+      expect(getAccidental('D', 4 + i * 12)).toBe('dsharp');
 
-      expect(getAccidental('e', 2 + i * 12)).toBe('dflat');
-      expect(getAccidental('e', 3 + i * 12)).toBe('flat');
-      expect(getAccidental('e', 4 + i * 12)).toBe(undefined);
-      expect(getAccidental('e', 5 + i * 12)).toBe('sharp');
-      expect(getAccidental('e', 6 + i * 12)).toBe('dsharp');
+      expect(getAccidental('E', 2 + i * 12)).toBe('dflat');
+      expect(getAccidental('E', 3 + i * 12)).toBe('flat');
+      expect(getAccidental('E', 4 + i * 12)).toBe(undefined);
+      expect(getAccidental('E', 5 + i * 12)).toBe('sharp');
+      expect(getAccidental('E', 6 + i * 12)).toBe('dsharp');
 
-      expect(getAccidental('f', 3 + i * 12)).toBe('dflat');
-      expect(getAccidental('f', 4 + i * 12)).toBe('flat');
-      expect(getAccidental('f', 5 + i * 12)).toBe(undefined);
-      expect(getAccidental('f', 6 + i * 12)).toBe('sharp');
-      expect(getAccidental('f', 7 + i * 12)).toBe('dsharp');
+      expect(getAccidental('F', 3 + i * 12)).toBe('dflat');
+      expect(getAccidental('F', 4 + i * 12)).toBe('flat');
+      expect(getAccidental('F', 5 + i * 12)).toBe(undefined);
+      expect(getAccidental('F', 6 + i * 12)).toBe('sharp');
+      expect(getAccidental('F', 7 + i * 12)).toBe('dsharp');
 
-      expect(getAccidental('g', 5 + i * 12)).toBe('dflat');
-      expect(getAccidental('g', 6 + i * 12)).toBe('flat');
-      expect(getAccidental('g', 7 + i * 12)).toBe(undefined);
-      expect(getAccidental('g', 8 + i * 12)).toBe('sharp');
-      expect(getAccidental('g', 9 + i * 12)).toBe('dsharp');
+      expect(getAccidental('G', 5 + i * 12)).toBe('dflat');
+      expect(getAccidental('G', 6 + i * 12)).toBe('flat');
+      expect(getAccidental('G', 7 + i * 12)).toBe(undefined);
+      expect(getAccidental('G', 8 + i * 12)).toBe('sharp');
+      expect(getAccidental('G', 9 + i * 12)).toBe('dsharp');
 
-      expect(getAccidental('a', 7 + i * 12)).toBe('dflat');
-      expect(getAccidental('a', 8 + i * 12)).toBe('flat');
-      expect(getAccidental('a', 9 + i * 12)).toBe(undefined);
-      expect(getAccidental('a', 10 + i * 12)).toBe('sharp');
-      expect(getAccidental('a', 11 + i * 12)).toBe('dsharp');
+      expect(getAccidental('A', 7 + i * 12)).toBe('dflat');
+      expect(getAccidental('A', 8 + i * 12)).toBe('flat');
+      expect(getAccidental('A', 9 + i * 12)).toBe(undefined);
+      expect(getAccidental('A', 10 + i * 12)).toBe('sharp');
+      expect(getAccidental('A', 11 + i * 12)).toBe('dsharp');
 
-      expect(getAccidental('b', 9 + i * 12)).toBe('dflat');
-      expect(getAccidental('b', 10 + i * 12)).toBe('flat');
-      expect(getAccidental('b', 11 + i * 12)).toBe(undefined);
-      expect(getAccidental('b', 12 + i * 12)).toBe('sharp');
-      expect(getAccidental('b', 13 + i * 12)).toBe('dsharp');
+      expect(getAccidental('B', 9 + i * 12)).toBe('dflat');
+      expect(getAccidental('B', 10 + i * 12)).toBe('flat');
+      expect(getAccidental('B', 11 + i * 12)).toBe(undefined);
+      expect(getAccidental('B', 12 + i * 12)).toBe('sharp');
+      expect(getAccidental('B', 13 + i * 12)).toBe('dsharp');
     }
   });
 
   test.each<[Parameters<typeof note>[number] | {}, Note]>([
+    [undefined, new Note({ stepValue: 'C', octave: 4, accidental: undefined })],
     [
-      undefined,
-      new Note({ baseNoteId: 'c', octave: 4, accidental: undefined }),
+      { stepValue: 'D' },
+      new Note({ stepValue: 'D', octave: 4, accidental: undefined }),
     ],
     [
-      { baseNoteId: 'd' },
-      new Note({ baseNoteId: 'd', octave: 4, accidental: undefined }),
+      { stepValue: 'D', octave: 5 },
+      new Note({ stepValue: 'D', octave: 5, accidental: undefined }),
     ],
     [
-      { baseNoteId: 'd', octave: 5 },
-      new Note({ baseNoteId: 'd', octave: 5, accidental: undefined }),
-    ],
-    [
-      { baseNoteId: 'd', octave: 6, accidental: 'sharp' },
-      new Note({ baseNoteId: 'd', octave: 6, accidental: 'sharp' }),
+      { stepValue: 'D', octave: 6, accidental: 'sharp' },
+      new Note({ stepValue: 'D', octave: 6, accidental: 'sharp' }),
     ],
     // ピッチクラスを指定
     [
-      { baseNoteId: 'c', octave: 4, integer: -2 },
-      new Note({ baseNoteId: 'c', octave: 4, accidental: 'dflat' }),
+      { stepValue: 'C', octave: 4, integer: -2 },
+      new Note({ stepValue: 'C', octave: 4, accidental: 'dflat' }),
     ],
     [
-      { baseNoteId: 'c', octave: 4, integer: -1 },
-      new Note({ baseNoteId: 'c', octave: 4, accidental: 'flat' }),
+      { stepValue: 'C', octave: 4, integer: -1 },
+      new Note({ stepValue: 'C', octave: 4, accidental: 'flat' }),
     ],
     [
-      { baseNoteId: 'c', octave: 4, integer: 0 },
-      new Note({ baseNoteId: 'c', octave: 4, accidental: undefined }),
+      { stepValue: 'C', octave: 4, integer: 0 },
+      new Note({ stepValue: 'C', octave: 4, accidental: undefined }),
     ],
     [
-      { baseNoteId: 'c', octave: 4, integer: 1 },
-      new Note({ baseNoteId: 'c', octave: 4, accidental: 'sharp' }),
+      { stepValue: 'C', octave: 4, integer: 1 },
+      new Note({ stepValue: 'C', octave: 4, accidental: 'sharp' }),
     ],
     [
-      { baseNoteId: 'c', octave: 4, integer: 2 },
-      new Note({ baseNoteId: 'c', octave: 4, accidental: 'dsharp' }),
+      { stepValue: 'C', octave: 4, integer: 2 },
+      new Note({ stepValue: 'C', octave: 4, accidental: 'dsharp' }),
     ],
     [
-      { baseNoteId: 'c', octave: 5, integer: 10 },
-      new Note({ baseNoteId: 'c', octave: 5, accidental: 'dflat' }),
+      { stepValue: 'C', octave: 5, integer: 10 },
+      new Note({ stepValue: 'C', octave: 5, accidental: 'dflat' }),
     ],
     [
-      { baseNoteId: 'c', octave: 5, integer: 11 },
-      new Note({ baseNoteId: 'c', octave: 5, accidental: 'flat' }),
+      { stepValue: 'C', octave: 5, integer: 11 },
+      new Note({ stepValue: 'C', octave: 5, accidental: 'flat' }),
     ],
     [
-      { baseNoteId: 'c', octave: 5, integer: 12 },
-      new Note({ baseNoteId: 'c', octave: 5, accidental: undefined }),
+      { stepValue: 'C', octave: 5, integer: 12 },
+      new Note({ stepValue: 'C', octave: 5, accidental: undefined }),
     ],
     [
-      { baseNoteId: 'c', octave: 5, integer: 13 },
-      new Note({ baseNoteId: 'c', octave: 5, accidental: 'sharp' }),
+      { stepValue: 'C', octave: 5, integer: 13 },
+      new Note({ stepValue: 'C', octave: 5, accidental: 'sharp' }),
     ],
     [
-      { baseNoteId: 'c', octave: 5, integer: 14 },
-      new Note({ baseNoteId: 'c', octave: 5, accidental: 'dsharp' }),
+      { stepValue: 'C', octave: 5, integer: 14 },
+      new Note({ stepValue: 'C', octave: 5, accidental: 'dsharp' }),
     ],
     [
-      { baseNoteId: 'b', octave: 4, integer: 9 },
-      new Note({ baseNoteId: 'b', octave: 4, accidental: 'dflat' }),
+      { stepValue: 'B', octave: 4, integer: 9 },
+      new Note({ stepValue: 'B', octave: 4, accidental: 'dflat' }),
     ],
     [
-      { baseNoteId: 'b', octave: 4, integer: 10 },
-      new Note({ baseNoteId: 'b', octave: 4, accidental: 'flat' }),
+      { stepValue: 'B', octave: 4, integer: 10 },
+      new Note({ stepValue: 'B', octave: 4, accidental: 'flat' }),
     ],
     [
-      { baseNoteId: 'b', octave: 4, integer: 11 },
-      new Note({ baseNoteId: 'b', octave: 4, accidental: undefined }),
+      { stepValue: 'B', octave: 4, integer: 11 },
+      new Note({ stepValue: 'B', octave: 4, accidental: undefined }),
     ],
     [
-      { baseNoteId: 'b', octave: 4, integer: 12 },
-      new Note({ baseNoteId: 'b', octave: 4, accidental: 'sharp' }),
+      { stepValue: 'B', octave: 4, integer: 12 },
+      new Note({ stepValue: 'B', octave: 4, accidental: 'sharp' }),
     ],
     [
-      { baseNoteId: 'b', octave: 4, integer: 13 },
-      new Note({ baseNoteId: 'b', octave: 4, accidental: 'dsharp' }),
+      { stepValue: 'B', octave: 4, integer: 13 },
+      new Note({ stepValue: 'B', octave: 4, accidental: 'dsharp' }),
     ],
     [
-      { baseNoteId: 'b', octave: 3, integer: -3 },
-      new Note({ baseNoteId: 'b', octave: 3, accidental: 'dflat' }),
+      { stepValue: 'B', octave: 3, integer: -3 },
+      new Note({ stepValue: 'B', octave: 3, accidental: 'dflat' }),
     ],
     [
-      { baseNoteId: 'b', octave: 3, integer: -2 },
-      new Note({ baseNoteId: 'b', octave: 3, accidental: 'flat' }),
+      { stepValue: 'B', octave: 3, integer: -2 },
+      new Note({ stepValue: 'B', octave: 3, accidental: 'flat' }),
     ],
     [
-      { baseNoteId: 'b', octave: 3, integer: -1 },
-      new Note({ baseNoteId: 'b', octave: 3, accidental: undefined }),
+      { stepValue: 'B', octave: 3, integer: -1 },
+      new Note({ stepValue: 'B', octave: 3, accidental: undefined }),
     ],
     [
-      { baseNoteId: 'b', octave: 3, integer: 0 },
-      new Note({ baseNoteId: 'b', octave: 3, accidental: 'sharp' }),
+      { stepValue: 'B', octave: 3, integer: 0 },
+      new Note({ stepValue: 'B', octave: 3, accidental: 'sharp' }),
     ],
     [
-      { baseNoteId: 'b', octave: 3, integer: 1 },
-      new Note({ baseNoteId: 'b', octave: 3, accidental: 'dsharp' }),
+      { stepValue: 'B', octave: 3, integer: 1 },
+      new Note({ stepValue: 'B', octave: 3, accidental: 'dsharp' }),
     ],
     // 不正なピッチクラスが指定されたらナチュラルを返す
     [
-      { baseNoteId: 'c', octave: 4, integer: 3 },
-      new Note({ baseNoteId: 'c', octave: 4, accidental: undefined }),
+      { stepValue: 'C', octave: 4, integer: 3 },
+      new Note({ stepValue: 'C', octave: 4, accidental: undefined }),
     ],
   ])('note', (input, expected) => {
     const result = note(input);
@@ -162,7 +159,7 @@ describe('piano.note', () => {
 
   test('Note', () => {
     let note = new Note({
-      baseNoteId: 'b',
+      stepValue: 'B',
       octave: 4,
       accidental: undefined,
     });
@@ -176,7 +173,7 @@ describe('piano.note', () => {
     expect(note.accidental).toBe(undefined);
 
     note = new Note({
-      baseNoteId: 'b',
+      stepValue: 'B',
       octave: 4,
       accidental: 'flat',
     });
@@ -190,7 +187,7 @@ describe('piano.note', () => {
     expect(note.accidental).toBe('flat');
 
     note = new Note({
-      baseNoteId: 'b',
+      stepValue: 'B',
       octave: 4,
       accidental: 'sharp',
     });
@@ -204,7 +201,7 @@ describe('piano.note', () => {
     expect(note.accidental).toBe('sharp');
 
     note = new Note({
-      baseNoteId: 'c',
+      stepValue: 'C',
       octave: 4,
       accidental: 'dflat',
     });
@@ -218,7 +215,7 @@ describe('piano.note', () => {
     expect(note.accidental).toBe('dflat');
 
     note = new Note({
-      baseNoteId: 'e',
+      stepValue: 'E',
       octave: 4,
       accidental: 'dflat',
     });
@@ -232,7 +229,7 @@ describe('piano.note', () => {
     expect(note.accidental).toBe('dflat');
 
     note = new Note({
-      baseNoteId: 'b',
+      stepValue: 'B',
       octave: 4,
       accidental: 'dflat',
     });
@@ -246,7 +243,7 @@ describe('piano.note', () => {
     expect(note.accidental).toBe('dflat');
 
     note = new Note({
-      baseNoteId: 'b',
+      stepValue: 'B',
       octave: 4,
       accidental: 'dsharp',
     });
@@ -260,7 +257,7 @@ describe('piano.note', () => {
     expect(note.accidental).toBe('dsharp');
 
     note = new Note({
-      baseNoteId: 'e',
+      stepValue: 'E',
       octave: 4,
       accidental: 'flat',
     });
@@ -274,7 +271,7 @@ describe('piano.note', () => {
     expect(note.accidental).toBe('flat');
 
     note = new Note({
-      baseNoteId: 'a',
+      stepValue: 'A',
       octave: 4,
       accidental: 'flat',
     });
@@ -288,7 +285,7 @@ describe('piano.note', () => {
     expect(note.accidental).toBe('flat');
 
     note = new Note({
-      baseNoteId: 'c',
+      stepValue: 'C',
       octave: 4,
       accidental: 'flat',
     });

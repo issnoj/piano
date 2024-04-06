@@ -1,4 +1,4 @@
-import { chordTypes } from './const';
+import { chordTypes } from './consts';
 import { Note, getBaseNoteByNumber, note } from './note';
 import { Chord, ChordTypeId } from './types';
 
@@ -16,7 +16,7 @@ export function chord(pianoNote: Note, type: ChordTypeId): Chord {
     const nextInteger = pianoNote.integer + interval.integer;
 
     const nextNote = note({
-      baseNoteId: nextBaseNote.id,
+      stepValue: nextBaseNote.value,
       octave: nextOctave,
       integer: nextInteger,
     });

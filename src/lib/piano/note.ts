@@ -1,31 +1,30 @@
-import { baseNotes } from './const';
-import { Accidental, BaseNote, BaseNoteId, NoteName } from './types';
+import { steps } from './consts';
+import { Accidental, Step, StepValue } from './types';
 
 export class Note {
   number: number;
-  name: NoteName;
+  step: Step;
   octave: number;
   integer: number;
   position: number;
   accidental?: Accidental;
 
   constructor({
-    baseNoteId,
+    stepValue,
     octave,
     accidental,
   }: {
-    baseNoteId: BaseNoteId;
+    stepValue: StepValue;
     octave: number;
     integer?: number;
     position?: number;
     accidental?: Accidental;
   }) {
-    const baseNote = baseNotes[baseNoteId];
-    this.number = baseNote.number;
-    this.name = baseNote.name;
+    this.step = steps[stepValue];
+    this.number = this.step.number;
     this.octave = octave;
-    this.integer = baseNote.integer + (octave - 4) * 12;
-    this.position = baseNote.position + (octave - 4) * 3.5;
+    this.integer = this.step.integer + (octave - 4) * 12;
+    this.position = this.step.position + (octave - 4) * 3.5;
     this.accidental = accidental;
 
     if (accidental === 'sharp') {
@@ -40,7 +39,7 @@ export class Note {
   }
 
   getName(lang: 'ja' | 'en' | 'de'): string {
-    let name = this.name[lang][0];
+    let name = this.step.name[lang][0];
 
     if (lang === 'de') {
       if (this.accidental === 'sharp') {
@@ -77,78 +76,76 @@ export class Note {
   }
 }
 
-export function getBaseNoteByNumber(number: number): BaseNote {
-  return Object.values(baseNotes).find(
-    (note) => note.number === number,
-  ) as BaseNote;
+export function getBaseNoteByNumber(number: number): Step {
+  return Object.values(steps).find((note) => note.number === number) as Step;
 }
 
 export function note({
-  baseNoteId = 'c',
+  stepValue = 'C',
   octave = 4,
   accidental,
   integer,
 }: {
-  baseNoteId?: BaseNoteId;
+  stepValue?: StepValue;
   octave?: number;
   accidental?: Accidental;
   integer?: number;
 } = {}): Note {
   if (integer !== undefined) {
-    accidental = getAccidental(baseNoteId, integer);
+    accidental = getAccidental(stepValue, integer);
   }
-  return new Note({ baseNoteId, octave, accidental });
+  return new Note({ stepValue: stepValue, octave, accidental });
 }
 
 export function getAccidental(
-  baseNoteId: BaseNoteId,
+  stepValue: StepValue,
   integer: number,
 ): Accidental {
   const mod = integer % 12;
 
-  if (baseNoteId === 'c') {
+  if (stepValue === 'C') {
     if ([-2, 10].includes(mod)) return 'dflat';
     if ([-1, 11].includes(mod)) return 'flat';
     if ([0].includes(mod)) return undefined;
     if ([1, -11].includes(mod)) return 'sharp';
     if ([2, -10].includes(mod)) return 'dsharp';
   }
-  if (baseNoteId === 'd') {
+  if (stepValue === 'D') {
     if ([0].includes(mod)) return 'dflat';
     if ([1, -11].includes(mod)) return 'flat';
     if ([2, -10].includes(mod)) return undefined;
     if ([3, -9].includes(mod)) return 'sharp';
     if ([4, -8].includes(mod)) return 'dsharp';
   }
-  if (baseNoteId === 'e') {
+  if (stepValue === 'E') {
     if ([2, -10].includes(mod)) return 'dflat';
     if ([3, -9].includes(mod)) return 'flat';
     if ([4, -8].includes(mod)) return undefined;
     if ([5, -7].includes(mod)) return 'sharp';
     if ([6, -6].includes(mod)) return 'dsharp';
   }
-  if (baseNoteId === 'f') {
+  if (stepValue === 'F') {
     if ([3, -9].includes(mod)) return 'dflat';
     if ([4, -8].includes(mod)) return 'flat';
     if ([5, -7].includes(mod)) return undefined;
     if ([6, -6].includes(mod)) return 'sharp';
     if ([7, -5].includes(mod)) return 'dsharp';
   }
-  if (baseNoteId === 'g') {
+  if (stepValue === 'G') {
     if ([5, -7].includes(mod)) return 'dflat';
     if ([6, -6].includes(mod)) return 'flat';
     if ([7, -5].includes(mod)) return undefined;
     if ([8, -4].includes(mod)) return 'sharp';
     if ([9, -3].includes(mod)) return 'dsharp';
   }
-  if (baseNoteId === 'a') {
+  if (stepValue === 'A') {
     if ([7, -5].includes(mod)) return 'dflat';
     if ([8, -4].includes(mod)) return 'flat';
     if ([9, -3].includes(mod)) return undefined;
     if ([10, -2].includes(mod)) return 'sharp';
     if ([11, -1].includes(mod)) return 'dsharp';
   }
-  if (baseNoteId === 'b') {
+  if (stepValue === 'B') {
     if ([9, -3].includes(mod)) return 'dflat';
     if ([10, -2].includes(mod)) return 'flat';
     if ([11, -1].includes(mod)) return undefined;

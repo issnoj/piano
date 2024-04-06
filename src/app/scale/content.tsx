@@ -1,6 +1,6 @@
 'use client';
 
-import { BaseNoteId, Scale, ScaleTypeId } from '@/lib/piano/types';
+import { StepValue, Scale, ScaleTypeId } from '@/lib/piano/types';
 import { Filter } from './filter';
 import { piano } from '@/lib/piano';
 import { Staff } from '@/components/staff/staff';
@@ -9,14 +9,14 @@ import { cn } from '@/lib/utils';
 
 export type FilterState = {
   scaleTypes: ScaleTypeId[];
-  baseNoteIds: BaseNoteId[];
+  baseNoteIds: StepValue[];
   accidentals: ('flat' | 'sharp' | '')[];
 };
 
 export const ScalePageContent = () => {
   const [filterState, setFilterState] = React.useState<FilterState>({
     scaleTypes: ['major', 'harmonicMinor', 'melodicMinor'],
-    baseNoteIds: ['c'],
+    baseNoteIds: ['C'],
     accidentals: ['', 'flat', 'sharp'],
   });
 
@@ -54,17 +54,20 @@ export const ScalePageContent = () => {
     let scales: Scale[] = [];
     filterState.baseNoteIds.forEach((baseNoteId) => {
       let octave = 4;
-      if (['b', 'a'].includes(baseNoteId)) {
+      if (['B', 'A'].includes(baseNoteId)) {
         octave = 3;
       }
       filterState.accidentals.forEach((accidental) => {
         const pianoNote = piano.note({
-          baseNoteId,
+          stepValue: baseNoteId,
           octave,
           accidental: accidental === '' ? undefined : accidental,
         });
         filterState.scaleTypes.forEach((scaleTypeId) => {
-          scales.push(piano.scale(pianoNote, scaleTypeId));
+          const scale = piano.scale(pianoNote, scaleTypeId);
+          if (scale) {
+            scales.push(scale);
+          }
         });
       });
     });
@@ -103,7 +106,7 @@ const ScaleHeader = ({ scale }: { scale: Scale }) => {
   return (
     <div
       className={cn(
-        'border-l-8 border-gray-600/50 bg-gradient-to-r from-gray-50 from-50% px-2 py-1',
+        'border-l-8 border-gray-600/50 bg-gradient-to-r from-gray-50 from-50% px-4 py-2',
         scale.type.id === 'minor' && 'border-orange-600/50 from-orange-50',
         scale.type.id === 'harmonicMinor' &&
           'border-emerald-600/50 from-emerald-50',
@@ -111,11 +114,24 @@ const ScaleHeader = ({ scale }: { scale: Scale }) => {
           ' border-purple-600/50 from-purple-50',
       )}
     >
-      <span className="mr-2 font-bold">{scale.shortName}</span>
-      <div className="inline-flex gap-2 text-xs">
-        {scale.type.id !== 'major' ? <span>({scale.type.name})</span> : null}
-        <span>{scale.nameEn}</span>
-        <span>{scale.nameDe}</span>
+      <div className="flex gap-4">
+        <Staff
+          size={7}
+          keySignature={{ fifths: scale.fifths }}
+          minWidth={250}
+        />
+        <div>
+          <div>
+            <span className="font-bold">{scale.shortName}</span>
+            {scale.type.id !== 'major' ? (
+              <span className="ml-2 text-xs">({scale.type.name})</span>
+            ) : null}
+          </div>
+          <div className="ml-2 inline-flex flex-col gap-2 text-xs">
+            <span>{scale.nameEn}</span>
+            <span>{scale.nameDe}</span>
+          </div>
+        </div>
       </div>
     </div>
   );
