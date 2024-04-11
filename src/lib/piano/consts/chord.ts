@@ -1,7 +1,8 @@
-import { ChordType, ChordTypeId } from '../types';
+import { ChordType } from '../types';
 
-export const chordTypes: Record<ChordTypeId, ChordType> = {
+export const chordTypes: Record<string, ChordType> = {
   majorTriad: {
+    symbol: '',
     name: 'メジャー・トライアド',
     nameEn: 'Major Triad',
     intervals: [
@@ -160,7 +161,7 @@ export const chordTypes: Record<ChordTypeId, ChordType> = {
     ],
   },
   minorMajorSeventh: {
-    symbol: 'm/maj7',
+    symbol: 'mMaj7',
     name: 'マイナー・メージャー・セブンス',
     nameEn: 'Minor Major Seventh',
     intervals: [
@@ -228,6 +229,40 @@ export const chordTypes: Record<ChordTypeId, ChordType> = {
       {
         number: 7,
         integer: 10,
+      },
+    ],
+  },
+  sus4: {
+    symbol: 'sus4',
+    name: 'サスフォー',
+    nameEn: 'Suspended 4th',
+    intervals: [
+      {
+        number: 3,
+        integer: 5,
+      },
+      {
+        number: 5,
+        integer: 7,
+      },
+    ],
+  },
+  add9: {
+    symbol: 'add9',
+    name: 'アッドナイン',
+    nameEn: 'Add 9th',
+    intervals: [
+      {
+        number: 3,
+        integer: 4,
+      },
+      {
+        number: 5,
+        integer: 7,
+      },
+      {
+        number: 9,
+        integer: 14,
       },
     ],
   },

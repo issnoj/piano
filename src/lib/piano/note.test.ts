@@ -1,4 +1,11 @@
-import { note, getBaseNoteByNumber, Note, getAccidental } from './note';
+import {
+  note,
+  getBaseNoteByNumber,
+  Note,
+  getAccidental,
+  text2Note,
+  getAllNoteByKey,
+} from './note';
 
 describe('piano.note', () => {
   test('getBaseNoteByNumber', () => {
@@ -297,5 +304,71 @@ describe('piano.note', () => {
     expect(note.integer).toBe(-1);
     expect(note.position).toBe(0);
     expect(note.accidental).toBe('flat');
+  });
+
+  test('getAllNoteByKey', () => {
+    const c = note({ stepValue: 'C' });
+    const cb = note({ stepValue: 'C', accidental: 'flat' });
+    const cbb = note({ stepValue: 'C', accidental: 'dflat' });
+    const cs = note({ stepValue: 'C', accidental: 'sharp' });
+    const css = note({ stepValue: 'C', accidental: 'dsharp' });
+
+    const result = getAllNoteByKey();
+
+    expect(result['c']).toStrictEqual(c);
+    expect(result['cb']).toStrictEqual(cb);
+    expect(result['c♭']).toStrictEqual(cb);
+    expect(result['cbb']).toStrictEqual(cbb);
+    expect(result['c♭♭']).toStrictEqual(cbb);
+    expect(result['c#']).toStrictEqual(cs);
+    expect(result['c♯']).toStrictEqual(cs);
+    expect(result['c##']).toStrictEqual(css);
+    expect(result['c♯♯']).toStrictEqual(css);
+  });
+
+  test('text2Note', () => {
+    const c = note({ stepValue: 'C' });
+    const cb = note({ stepValue: 'C', accidental: 'flat' });
+    const cbb = note({ stepValue: 'C', accidental: 'dflat' });
+    const cs = note({ stepValue: 'C', accidental: 'sharp' });
+    const css = note({ stepValue: 'C', accidental: 'dsharp' });
+
+    expect(text2Note('c')).toStrictEqual(c);
+    expect(text2Note('cb')).toStrictEqual(cb);
+    expect(text2Note('cbb')).toStrictEqual(cbb);
+    expect(text2Note('c#')).toStrictEqual(cs);
+    expect(text2Note('c##')).toStrictEqual(css);
+    expect(text2Note('c♭')).toStrictEqual(cb);
+    expect(text2Note('c♭♭')).toStrictEqual(cbb);
+    expect(text2Note('c♯')).toStrictEqual(cs);
+    expect(text2Note('c♯♯')).toStrictEqual(css);
+
+    // オクターブ
+    expect(text2Note('c5')).toStrictEqual(note({ stepValue: 'C', octave: 5 }));
+    expect(text2Note('c5b')).toStrictEqual(
+      note({ stepValue: 'C', octave: 5, accidental: 'flat' }),
+    );
+    expect(text2Note('c5bb')).toStrictEqual(
+      note({ stepValue: 'C', octave: 5, accidental: 'dflat' }),
+    );
+    expect(text2Note('c10')).toStrictEqual(
+      note({ stepValue: 'C', octave: 10 }),
+    );
+
+    // 不正
+    expect(text2Note('cc')).toStrictEqual(null);
+  });
+
+  test('text2Note octave', () => {
+    expect(text2Note('c5')).toStrictEqual(note({ stepValue: 'C', octave: 5 }));
+    expect(text2Note('c5b')).toStrictEqual(
+      note({ stepValue: 'C', octave: 5, accidental: 'flat' }),
+    );
+    expect(text2Note('c5bb')).toStrictEqual(
+      note({ stepValue: 'C', octave: 5, accidental: 'dflat' }),
+    );
+    expect(text2Note('c10')).toStrictEqual(
+      note({ stepValue: 'C', octave: 10 }),
+    );
   });
 });

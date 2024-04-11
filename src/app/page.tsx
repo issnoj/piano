@@ -1,6 +1,7 @@
 import { Staff } from '@/components/staff/staff';
 import { piano } from '@/lib/piano';
-import { Scale } from '@/lib/piano/types';
+import { Note } from '@/lib/piano/note';
+import { Scale, Chord } from '@/lib/piano/types';
 import { cn } from '@/lib/utils';
 
 export default function Home() {
@@ -8,8 +9,42 @@ export default function Home() {
     <div className={'space-y-8 p-4'}>
       <h1 className="text-xl font-bold">Test</h1>
       <Staff
+        chords={[
+          piano.chord(piano.note({ stepValue: 'F', octave: 4 }), 'majorTriad'),
+          piano.chord(piano.note({ stepValue: 'F', octave: 4 }), 'sus4'),
+          piano.chord(piano.note({ stepValue: 'F', octave: 4 }), 'add9'),
+          piano.chord(
+            piano.note({ stepValue: 'F', octave: 4 }),
+            'majorTriad',
+            2,
+          ),
+          piano.chord(piano.note({ stepValue: 'C', octave: 4 }), 'majorTriad'),
+        ]}
+      />
+      <Staff
         id="test"
         chords={[
+          {
+            name: 'F♯',
+            notes: [piano.text2Note('f#') as Note],
+          },
+          {
+            name: 'B♭',
+            notes: [piano.text2Note('bb') as Note],
+          },
+          {
+            name: 'F♯♯',
+            notes: [piano.text2Note('f##') as Note],
+          },
+          {
+            name: 'A♭♭',
+            notes: [piano.text2Note('abb') as Note],
+          },
+          piano.text2Chord('c') as Chord,
+          piano.text2Chord('c7') as Chord,
+          piano.text2Chord('cdim7') as Chord,
+          piano.text2Chord('baug') as Chord,
+          piano.text2Chord('d7/c') as Chord,
           {
             name: 'C',
             notes: [
@@ -20,53 +55,31 @@ export default function Home() {
             ],
           },
           {
-            name: 'F♯',
+            name: 'C',
             notes: [
-              piano.note({ stepValue: 'F', octave: 4, accidental: 'sharp' }),
+              piano.text2Note('c3#') as Note,
+              piano.text2Note('c4#') as Note,
+              piano.text2Note('c5#') as Note,
+              piano.text2Note('c6#') as Note,
             ],
           },
           {
-            name: 'B♭',
+            name: '',
             notes: [
-              piano.note({ stepValue: 'B', octave: 4, accidental: 'flat' }),
-            ],
-          },
-          {
-            name: 'F♯♯',
-            notes: [
-              piano.note({ stepValue: 'F', octave: 4, accidental: 'dsharp' }),
-            ],
-          },
-          {
-            name: 'A♭♭',
-            notes: [
-              piano.note({ stepValue: 'A', octave: 4, accidental: 'dflat' }),
-            ],
-          },
-          {
-            name: 'C7',
-            notes: [
-              piano.note(),
-              piano.note({ stepValue: 'E' }),
-              piano.note({ stepValue: 'G' }),
-              piano.note({ stepValue: 'B', accidental: 'flat' }),
-            ],
-          },
-          {
-            name: 'Cdim',
-            notes: [
-              piano.note(),
-              piano.note({ stepValue: 'E', accidental: 'flat' }),
-              piano.note({ stepValue: 'G', accidental: 'flat' }),
-              piano.note({ stepValue: 'B', accidental: 'dflat' }),
-            ],
-          },
-          {
-            name: 'Baug',
-            notes: [
-              piano.note({ stepValue: 'B', octave: 3 }),
-              piano.note({ stepValue: 'D', accidental: 'sharp' }),
-              piano.note({ stepValue: 'F', accidental: 'dsharp' }),
+              piano.text2Note('c') as Note,
+              piano.text2Note('d') as Note,
+              piano.text2Note('e') as Note,
+              piano.text2Note('f') as Note,
+              piano.text2Note('g') as Note,
+              piano.text2Note('a') as Note,
+              piano.text2Note('b') as Note,
+              piano.text2Note('c5') as Note,
+              piano.text2Note('d5') as Note,
+              piano.text2Note('e5') as Note,
+              piano.text2Note('f5') as Note,
+              piano.text2Note('g5') as Note,
+              piano.text2Note('a5') as Note,
+              piano.text2Note('b5') as Note,
             ],
           },
         ]}

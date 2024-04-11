@@ -3,6 +3,11 @@ import { StaffNoteProp } from '@/components/staff/staff-note';
 import { StaffChord } from '@/components/staff/staff-chord';
 import { Chord } from '@/lib/piano/types';
 import { FlatIcon, SharpIcon } from './icons';
+import { Note } from '@/lib/piano/note';
+
+function compareNoteByPosition(a: Note, b: Note) {
+  return a.position - b.position;
+}
 
 export const STAFF_LINE_ZERO_Y = 140;
 export const STAFF_LINE_HEIGHT = 20;
@@ -174,7 +179,9 @@ const getStaffChord = ({
   let maxTranslateX = 0;
   let bottom = 200;
 
-  const staffNoteProps = chord.notes.map((note) => {
+  const sotedNotes = chord.notes.sort(compareNoteByPosition);
+
+  const staffNoteProps = sotedNotes.map((note) => {
     const translateY =
       STAFF_LINE_HEIGHT * 6.5 - note.position * STAFF_LINE_HEIGHT;
 

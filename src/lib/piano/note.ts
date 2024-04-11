@@ -153,3 +153,71 @@ export function getAccidental(
     if ([1, -11].includes(mod)) return 'dsharp';
   }
 }
+
+export function getAllNoteByKey(): Record<string, Note> {
+  const notes: Record<string, Note> = {};
+  Object.values(steps).forEach((step) => {
+    for (const alter of ['', 'b', '♭', 'bb', '♭♭', '#', '♯', '##', '♯♯']) {
+      let accidental: Accidental | undefined;
+      switch (alter) {
+        case 'b':
+        case '♭':
+          accidental = 'flat';
+          break;
+        case 'bb':
+        case '♭♭':
+          accidental = 'dflat';
+          break;
+        case '#':
+        case '♯':
+          accidental = 'sharp';
+          break;
+        case '##':
+        case '♯♯':
+          accidental = 'dsharp';
+          break;
+      }
+      notes[`${step.value.toLowerCase()}${alter}`] = note({
+        stepValue: step.value,
+        octave: 4,
+        accidental,
+      });
+    }
+  });
+  return notes;
+}
+
+export function text2Note(text: string): Note | null {
+  const stepValueText = text[0].toUpperCase();
+  const rest = text.slice(1);
+  const m = rest.match(/^(\d*)(.*)/);
+  const octave = m && m[1] !== '' ? Number(m[1]) : 4;
+  const alter = m && m[2] ? m[2] : '';
+  const stepValue = stepValueText as StepValue;
+
+  let accidental: Accidental | undefined;
+  switch (alter) {
+    case '':
+      break;
+    case 'b':
+    case '♭':
+      accidental = 'flat';
+      break;
+    case 'bb':
+    case '♭♭':
+      accidental = 'dflat';
+      break;
+    case '#':
+    case '♯':
+      accidental = 'sharp';
+      break;
+    case '##':
+    case '♯♯':
+      accidental = 'dsharp';
+      break;
+    default:
+      return null;
+  }
+
+  return note({ stepValue, octave, accidental });
+}

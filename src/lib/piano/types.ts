@@ -1,3 +1,4 @@
+import { chordTypes } from './consts';
 import { Note } from './note';
 
 /**
@@ -46,20 +47,7 @@ export type Scale = {
   fifths: number;
 };
 
-export type ChordTypeId =
-  | 'majorTriad'
-  | 'majorSixth'
-  | 'dominantSeventh'
-  | 'majorSeventh'
-  | 'augmentedTriad'
-  | 'augmentedSeventh'
-  | 'minorTriad'
-  | 'minorSixth'
-  | 'minorSeventh'
-  | 'minorMajorSeventh'
-  | 'diminishedTriad'
-  | 'diminishedSeventh'
-  | 'halfDiminishedSeventh';
+export type ChordTypeId = keyof typeof chordTypes;
 
 export type ChordType = {
   name: string;
@@ -73,6 +61,9 @@ export type ChordType = {
 
 export type Chord = {
   name: string;
+  inversion?: number;
+  accidental?: Accidental;
+  suffix?: string;
   type?: ChordType;
   notes: Note[];
 };

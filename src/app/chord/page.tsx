@@ -1,6 +1,7 @@
 import { Staff } from '@/components/staff/staff';
 import { piano } from '@/lib/piano';
 import { Accidental, StepValue } from '@/lib/piano/types';
+import { InputChord } from './input-chord';
 
 type Chord = {
   id: StepValue;
@@ -27,6 +28,7 @@ const chords: Chord[] = [
 export default function Page() {
   return (
     <div className={'space-y-8 p-4'}>
+      <InputChord />
       <h1 className="text-xl font-bold">Chord</h1>
       <table>
         <tbody>
