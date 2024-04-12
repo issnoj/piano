@@ -1,29 +1,24 @@
-import { StaffNote, StaffNoteProp } from '@/components/staff/staff-note';
-import { Chord } from '@/lib/piano/types';
-import { NOTE_WIDTH, STAFF_LINE_HEIGHT, STAFF_LINE_ZERO_Y } from './staff';
-
-export type StaffChordProp = {
-  chord: Chord;
-  staffNoteProps: StaffNoteProp[];
-  translateX: number;
-  bottom: number;
-  fontSize: number;
-};
+import { StaffNote } from '@/components/staff/staff-note';
+import { NOTE_WIDTH, STAFF_LINE_HEIGHT, STAFF_LINE_ZERO_Y } from './consts';
+import { StaffChordProps } from './types';
 
 export const StaffChord = ({
   chord,
-  staffNoteProps,
-  translateX,
-  bottom,
+  notePropsList,
   fontSize,
-}: StaffChordProp) => {
+  x,
+  width,
+  height,
+}: StaffChordProps) => {
   return (
     <g
+      data-width={width}
+      data-height={height}
       style={{
-        transform: `translateX(${translateX}px)`,
+        transform: `translateX(${x}px)`,
       }}
     >
-      {staffNoteProps.map((props, i) => {
+      {notePropsList.map((props, i) => {
         const linePositions = generateLinePositions(props.note.position);
         return (
           <g key={i}>
@@ -32,8 +27,9 @@ export const StaffChord = ({
               return (
                 <line
                   key={index}
+                  x1={props.noteTranslateX}
                   y1={y}
-                  x2={NOTE_WIDTH}
+                  x2={NOTE_WIDTH + props.noteTranslateX}
                   y2={y}
                   stroke="black"
                 />
@@ -45,8 +41,8 @@ export const StaffChord = ({
       })}
       {!!chord.name && (
         <text
-          x={NOTE_WIDTH / 2}
-          y={bottom}
+          x={width / 2}
+          y={height}
           fill="black"
           fontSize={fontSize}
           textAnchor="middle"
@@ -54,6 +50,14 @@ export const StaffChord = ({
           {chord.name}
         </text>
       )}
+      <rect
+        width={width}
+        height={height}
+        fill={'red'}
+        stroke={'red'}
+        strokeWidth={0}
+        fillOpacity={0}
+      />
     </g>
   );
 };

@@ -53,6 +53,7 @@ export const InputChord = () => {
   const [showSuggestion, setShowSuggest] = React.useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleChange = React.useCallback(
     debounce((e: React.ChangeEvent<HTMLInputElement>) => {
       const value = cleanChordText(e.target.value);
@@ -84,7 +85,9 @@ export const InputChord = () => {
         {showSuggestion && (
           <>
             {suggestChords.map((chord) => (
-              <div>{chord.name.replaceAll('♭', 'b').replaceAll('♯', '#')}</div>
+              <div key={chord.name}>
+                {chord.name.replaceAll('♭', 'b').replaceAll('♯', '#')}
+              </div>
             ))}
           </>
         )}

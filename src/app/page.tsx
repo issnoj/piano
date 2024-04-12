@@ -45,13 +45,20 @@ export default function Home() {
           piano.text2Chord('cdim7') as Chord,
           piano.text2Chord('baug') as Chord,
           piano.text2Chord('d7/c') as Chord,
+        ]}
+      />
+      <Staff
+        keySignature={{ fifths: -5 }}
+        chords={[
           {
             name: 'C',
             notes: [
+              piano.note({ stepValue: 'C', octave: 2 }),
               piano.note({ stepValue: 'C', octave: 3 }),
               piano.note({ stepValue: 'C', octave: 4 }),
               piano.note({ stepValue: 'C', octave: 5 }),
               piano.note({ stepValue: 'C', octave: 6 }),
+              piano.note({ stepValue: 'C', octave: 7 }),
             ],
           },
           {
@@ -64,7 +71,7 @@ export default function Home() {
             ],
           },
           {
-            name: '',
+            name: 'C D E F G A B',
             notes: [
               piano.text2Note('c') as Note,
               piano.text2Note('d') as Note,
