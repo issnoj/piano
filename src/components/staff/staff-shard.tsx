@@ -27,7 +27,6 @@ export const StaffShard = ({
 }: StaffShardProps) => {
   return (
     <g
-      className="staff-shard"
       data-width={width}
       data-height={height}
       style={{ transform: `translateY(${translateY}px)` }}
