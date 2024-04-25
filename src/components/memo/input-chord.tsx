@@ -1,11 +1,10 @@
-'use client';
-
 import { Staff } from '@/components/staff/staff';
 import { piano } from '@/lib/piano';
 import { cleanChordText, getAllChordByKey } from '@/lib/piano/chord';
 import { Chord } from '@/lib/piano/types';
 import { debounce } from '@/lib/utils';
 import React from 'react';
+import { Input } from '@/components/ui/input';
 
 const allChords = getAllChordByKey();
 const chordTexts = Object.keys(allChords);
@@ -22,8 +21,8 @@ function getSuggestChords(text: string) {
     const lastChar = text.slice(-1);
     const rest = text.slice(1);
 
-    // 転回系は、末尾が / でなければスキップ
-    if (chord.inversion && lastChar !== '/') {
+    // 転回系は、/ が含まれていなければスキップ
+    if (chord.inversion && !text.split('').includes('/')) {
       continue;
     }
 
@@ -47,8 +46,17 @@ function getSuggestChords(text: string) {
   return suggestChords;
 }
 
-export const InputChord = () => {
-  const [chords, setChords] = React.useState<Chord[]>([]);
+type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+  initialChords: Chord[];
+  onChangeChords: (chords: Chord[]) => void;
+};
+
+export const InputChord = ({
+  initialChords,
+  onChangeChords,
+  ...props
+}: Props) => {
+  const [chords, setChords] = React.useState<Chord[]>(initialChords);
   const [suggestChords, setSuggestChords] = React.useState<Chord[]>([]);
   const [showSuggestion, setShowSuggest] = React.useState(false);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -59,6 +67,7 @@ export const InputChord = () => {
       const value = cleanChordText(e.target.value);
       const chords = piano.text2Chords(value);
       setChords(chords);
+      onChangeChords(chords);
 
       const array = value.split(' ');
       const lastText = array[array.length - 1];
@@ -73,26 +82,38 @@ export const InputChord = () => {
 
   return (
     <div>
-      <input
+      <Input
         className="w-full border px-3 py-2"
         ref={inputRef}
         type="text"
+        defaultValue={
+          initialChords.length > 0
+            ? initialChords.map((v) => v.name).join(' ')
+            : ''
+        }
+        placeholder="コードを入力してください   例) c f g c"
         onChange={handleChange}
         onFocus={() => setShowSuggest(true)}
         onBlur={() => setShowSuggest(false)}
+        {...props}
       />
-      <div className="flex h-10 items-center gap-1">
+      <div className="mt-5 flex h-10 flex-wrap items-center gap-1 text-sm">
         {showSuggestion && (
           <>
+            {suggestChords.length > 0 && (
+              <span className={'whitespace-nowrap text-muted-foreground'}>
+                候補：
+              </span>
+            )}
             {suggestChords.map((chord) => (
-              <div key={chord.name}>
+              <span className={'font-medium'} key={chord.name}>
                 {chord.name.replaceAll('♭', 'b').replaceAll('♯', '#')}
-              </div>
+              </span>
             ))}
           </>
         )}
       </div>
-      <Staff chords={chords} />
+      <Staff minWidth={185} className={'w-full'} chords={chords} />
     </div>
   );
 };

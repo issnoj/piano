@@ -1,7 +1,6 @@
-import { Staff } from '@/components/staff/staff';
 import { piano } from '@/lib/piano';
+import { Staff } from '@/components/staff/staff';
 import { Accidental, StepValue } from '@/lib/piano/types';
-import { InputChord } from './input-chord';
 
 type Chord = {
   id: StepValue;
@@ -27,9 +26,8 @@ const chords: Chord[] = [
 
 export default function Page() {
   return (
-    <div className={'space-y-8 p-4'}>
-      <InputChord />
-      <h1 className="text-xl font-bold">Chord</h1>
+    <div className="flex flex-col gap-8">
+      <h2 className="text-2xl font-bold">コード検索</h2>
       <table>
         <tbody>
           {chords.map((v, i) => {
