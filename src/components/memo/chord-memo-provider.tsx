@@ -16,8 +16,7 @@ type ChordMemoContextType = {
   create: (data: Omit<MemoChord, 'id'>) => void;
   readAll: () => MemoChord[];
   remove: (id: string) => void;
-  read: (id: string) => MemoChord;
-  search: (title: string) => MemoChord[];
+  read: (id: string) => MemoChord | undefined;
 };
 
 const ChordMemoContext = React.createContext<ChordMemoContextType | null>(null);
@@ -55,13 +54,13 @@ export const ChordMemoProvider = ({
     [readAll],
   );
 
-  const search = React.useCallback(
-    (title: string) => {
-      const allData = readAll();
-      return allData.find((v) => new RegExp(`${title}`).test(v.title));
-    },
-    [readAll],
-  );
+  // const search = React.useCallback(
+  //   (title: string) => {
+  //     const allData = readAll();
+  //     return allData.find((v) => new RegExp(`${title}`).test(v.title));
+  //   },
+  //   [readAll],
+  // );
 
   const read = React.useCallback(
     (id: string) => {
