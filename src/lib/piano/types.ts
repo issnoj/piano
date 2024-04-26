@@ -1,5 +1,5 @@
 import { chordTypes } from './consts';
-import { Note } from './note';
+import { Pitch } from './pitch';
 
 /**
  * 音の名前
@@ -43,7 +43,7 @@ export type Scale = {
   nameEn: string;
   nameDe: string;
   type: ScaleType;
-  notes: Note[];
+  notes: Pitch[];
   fifths: number;
 };
 
@@ -65,7 +65,7 @@ export type Chord = {
   accidental?: Accidental;
   suffix?: string;
   type?: ChordType;
-  notes: Note[];
+  pitches: Pitch[];
 };
 
 export type Accidental =

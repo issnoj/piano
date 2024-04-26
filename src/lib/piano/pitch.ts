@@ -1,13 +1,12 @@
 import { steps } from './consts';
 import { Accidental, Step, StepValue } from './types';
 
-export class Note {
-  number: number;
+export class Pitch {
   step: Step;
   octave: number;
   integer: number;
-  position: number;
   accidental?: Accidental;
+  position: number;
 
   constructor({
     stepValue,
@@ -21,11 +20,10 @@ export class Note {
     accidental?: Accidental;
   }) {
     this.step = steps[stepValue];
-    this.number = this.step.number;
     this.octave = octave;
     this.integer = this.step.integer + (octave - 4) * 12;
-    this.position = this.step.position + (octave - 4) * 3.5;
     this.accidental = accidental;
+    this.position = getPosition(stepValue, octave);
 
     if (accidental === 'sharp') {
       this.integer++;
@@ -76,11 +74,11 @@ export class Note {
   }
 }
 
-export function getBaseNoteByNumber(number: number): Step {
-  return Object.values(steps).find((note) => note.number === number) as Step;
+export function getBasePitchByNumber(number: number): Step {
+  return Object.values(steps).find((pitch) => pitch.number === number) as Step;
 }
 
-export function note({
+export function pitch({
   stepValue = 'C',
   octave = 4,
   accidental,
@@ -90,11 +88,11 @@ export function note({
   octave?: number;
   accidental?: Accidental;
   integer?: number;
-} = {}): Note {
+} = {}): Pitch {
   if (integer !== undefined) {
     accidental = getAccidental(stepValue, integer);
   }
-  return new Note({ stepValue: stepValue, octave, accidental });
+  return new Pitch({ stepValue: stepValue, octave, accidental });
 }
 
 export function getAccidental(
@@ -154,8 +152,8 @@ export function getAccidental(
   }
 }
 
-export function getAllNoteByKey(): Record<string, Note> {
-  const notes: Record<string, Note> = {};
+export function getAllPitchByKey(): Record<string, Pitch> {
+  const pitches: Record<string, Pitch> = {};
   Object.values(steps).forEach((step) => {
     for (const alter of ['', 'b', '♭', 'bb', '♭♭', '#', '♯', '##', '♯♯']) {
       let accidental: Accidental | undefined;
@@ -177,17 +175,17 @@ export function getAllNoteByKey(): Record<string, Note> {
           accidental = 'dsharp';
           break;
       }
-      notes[`${step.value.toLowerCase()}${alter}`] = note({
+      pitches[`${step.value.toLowerCase()}${alter}`] = pitch({
         stepValue: step.value,
         octave: 4,
         accidental,
       });
     }
   });
-  return notes;
+  return pitches;
 }
 
-export function text2Note(text: string): Note | null {
+export function text2pitch(text: string): Pitch | null {
   const stepValueText = text[0].toUpperCase();
   const rest = text.slice(1);
   const m = rest.match(/^(\d*)(.*)/);
@@ -219,5 +217,12 @@ export function text2Note(text: string): Note | null {
       return null;
   }
 
-  return note({ stepValue, octave, accidental });
+  return pitch({ stepValue, octave, accidental });
+}
+
+function getPosition(stepValue: StepValue, octave: number) {
+  const position = { C: 0, D: 0.5, E: 1, F: 1.5, G: 2, A: 2.5, B: 3 }[
+    stepValue
+  ];
+  return position + (octave - 4) * 3.5;
 }

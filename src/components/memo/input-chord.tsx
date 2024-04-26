@@ -1,10 +1,10 @@
-import { Staff } from '@/components/staff/staff';
+import { Score } from '@/components/staff/score';
 import { piano } from '@/lib/piano';
 import { cleanChordText, getAllChordByKey } from '@/lib/piano/chord';
 import { Chord } from '@/lib/piano/types';
 import { debounce } from '@/lib/utils';
 import React from 'react';
-import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 const allChords = getAllChordByKey();
 const chordTexts = Object.keys(allChords);
@@ -18,7 +18,6 @@ function getSuggestChords(text: string) {
     }
 
     const chord = allChords[key];
-    const lastChar = text.slice(-1);
     const rest = text.slice(1);
 
     // 転回系は、/ が含まれていなければスキップ
@@ -46,24 +45,26 @@ function getSuggestChords(text: string) {
   return suggestChords;
 }
 
-type Props = React.InputHTMLAttributes<HTMLInputElement> & {
+type Props = {
   initialChords: Chord[];
   onChangeChords: (chords: Chord[]) => void;
+  disabled: boolean;
 };
 
 export const InputChord = ({
   initialChords,
   onChangeChords,
+  disabled,
   ...props
 }: Props) => {
   const [chords, setChords] = React.useState<Chord[]>(initialChords);
   const [suggestChords, setSuggestChords] = React.useState<Chord[]>([]);
   const [showSuggestion, setShowSuggest] = React.useState(false);
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  const inputRef = React.useRef<HTMLTextAreaElement>(null);
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleChange = React.useCallback(
-    debounce((e: React.ChangeEvent<HTMLInputElement>) => {
+    debounce((e: React.ChangeEvent<HTMLTextAreaElement>) => {
       const value = cleanChordText(e.target.value);
       const chords = piano.text2Chords(value);
       setChords(chords);
@@ -82,10 +83,9 @@ export const InputChord = ({
 
   return (
     <div>
-      <Input
+      <Textarea
         className="w-full border px-3 py-2"
         ref={inputRef}
-        type="text"
         defaultValue={
           initialChords.length > 0
             ? initialChords.map((v) => v.name).join(' ')
@@ -95,6 +95,7 @@ export const InputChord = ({
         onChange={handleChange}
         onFocus={() => setShowSuggest(true)}
         onBlur={() => setShowSuggest(false)}
+        disabled={disabled}
         {...props}
       />
       <div className="mt-5 flex h-10 flex-wrap items-center gap-1 text-sm">
@@ -113,7 +114,7 @@ export const InputChord = ({
           </>
         )}
       </div>
-      <Staff minWidth={185} className={'w-full'} chords={chords} />
+      <Score minWidth={185} className={'w-full'} chords={chords} />
     </div>
   );
 };

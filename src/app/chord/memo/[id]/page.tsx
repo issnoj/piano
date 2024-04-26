@@ -4,7 +4,7 @@ import {
   MemoChord,
   useChordMemoContext,
 } from '@/components/memo/chord-memo-provider';
-import { Staff } from '@/components/staff/staff';
+import { Score } from '@/components/staff/score';
 import { piano } from '@/lib/piano';
 import React from 'react';
 
@@ -31,7 +31,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <span className="tabular-nums">{createdAt.toLocaleTimeString()}</span>
       </p>
       <div className="py-10">
-        <Staff
+        <Score
           minWidth={185}
           className={'w-full'}
           chords={memoChord.chords ? piano.text2Chords(memoChord.chords) : []}

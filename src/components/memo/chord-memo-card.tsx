@@ -33,7 +33,10 @@ export const ChordMemoCard = ({ memoChord }: Props) => {
         <Button
           variant="outline"
           size="icon"
-          onClick={() => remove(memoChord.id)}
+          onClick={(e) => {
+            remove(memoChord.id);
+            e.preventDefault();
+          }}
         >
           <Trash className="size-4" />
         </Button>

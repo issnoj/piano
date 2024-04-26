@@ -1,7 +1,8 @@
 import { cn } from '@/lib/utils';
 import { Chord } from '@/lib/piano/types';
 import { STAFF_LINE_HEIGHT } from './consts';
-import { StaffShard, getStaffData } from './staff-shard';
+import { ScoreShard } from './score-shard';
+import { getScoreData } from '@/components/staff/utils';
 
 type Props = {
   id?: string;
@@ -16,7 +17,7 @@ type Props = {
   showClef?: boolean;
 };
 
-export const Staff = ({
+export const Score = ({
   id,
   className,
   chords = [],
@@ -26,14 +27,14 @@ export const Staff = ({
   minWidth = 0,
 }: Props) => {
   const scale = size / STAFF_LINE_HEIGHT;
-  const staffData = getStaffData({
+  const scoreData = getScoreData({
     keySignature,
     chords,
     fontSize,
   });
 
-  const height = staffData.height;
-  const width = Math.max(staffData.width, minWidth);
+  const height = scoreData.height;
+  const width = Math.max(scoreData.width, minWidth);
 
   return (
     <svg
@@ -44,8 +45,8 @@ export const Staff = ({
       viewBox={`0 0 ${width} ${height}`}
       fill="none"
     >
-      {staffData.shardPropsList.map((props, i) => (
-        <StaffShard key={i} {...props} />
+      {scoreData.shardPropsList.map((props, i) => (
+        <ScoreShard key={i} {...props} />
       ))}
     </svg>
   );

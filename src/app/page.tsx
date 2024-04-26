@@ -1,6 +1,6 @@
-import { Staff } from '@/components/staff/staff';
+import { Score } from '@/components/staff/score';
 import { piano } from '@/lib/piano';
-import { Note } from '@/lib/piano/note';
+import { Pitch } from '@/lib/piano/pitch';
 import { Scale, Chord } from '@/lib/piano/types';
 import { cn } from '@/lib/utils';
 
@@ -8,37 +8,37 @@ export default function Home() {
   return (
     <div className={'space-y-8 p-4'}>
       <h1 className="text-xl font-bold">Test</h1>
-      <Staff
+      <Score
         chords={[
-          piano.chord(piano.note({ stepValue: 'F', octave: 4 }), 'majorTriad'),
-          piano.chord(piano.note({ stepValue: 'F', octave: 4 }), 'sus4'),
-          piano.chord(piano.note({ stepValue: 'F', octave: 4 }), 'add9'),
+          piano.chord(piano.pitch({ stepValue: 'F', octave: 4 }), 'majorTriad'),
+          piano.chord(piano.pitch({ stepValue: 'F', octave: 4 }), 'sus4'),
+          piano.chord(piano.pitch({ stepValue: 'F', octave: 4 }), 'add9'),
           piano.chord(
-            piano.note({ stepValue: 'F', octave: 4 }),
+            piano.pitch({ stepValue: 'F', octave: 4 }),
             'majorTriad',
             2,
           ),
-          piano.chord(piano.note({ stepValue: 'C', octave: 4 }), 'majorTriad'),
+          piano.chord(piano.pitch({ stepValue: 'C', octave: 4 }), 'majorTriad'),
         ]}
       />
-      <Staff
+      <Score
         id="test"
         chords={[
           {
             name: 'F♯',
-            notes: [piano.text2Note('f#') as Note],
+            pitches: [piano.text2pitch('f#') as Pitch],
           },
           {
             name: 'B♭',
-            notes: [piano.text2Note('bb') as Note],
+            pitches: [piano.text2pitch('bb') as Pitch],
           },
           {
             name: 'F♯♯',
-            notes: [piano.text2Note('f##') as Note],
+            pitches: [piano.text2pitch('f##') as Pitch],
           },
           {
             name: 'A♭♭',
-            notes: [piano.text2Note('abb') as Note],
+            pitches: [piano.text2pitch('abb') as Pitch],
           },
           piano.text2Chord('c') as Chord,
           piano.text2Chord('c7') as Chord,
@@ -47,46 +47,60 @@ export default function Home() {
           piano.text2Chord('d7/c') as Chord,
         ]}
       />
-      <Staff
+      <Score
         keySignature={{ fifths: -5 }}
         chords={[
           {
             name: 'C',
-            notes: [
-              piano.note({ stepValue: 'C', octave: 2 }),
-              piano.note({ stepValue: 'C', octave: 3 }),
-              piano.note({ stepValue: 'C', octave: 4 }),
-              piano.note({ stepValue: 'C', octave: 5 }),
-              piano.note({ stepValue: 'C', octave: 6 }),
-              piano.note({ stepValue: 'C', octave: 7 }),
+            pitches: [
+              piano.pitch({ stepValue: 'C', octave: 2 }),
+              piano.pitch({ stepValue: 'C', octave: 3 }),
+              piano.pitch({ stepValue: 'C', octave: 4 }),
+              piano.pitch({ stepValue: 'C', octave: 5 }),
+              piano.pitch({ stepValue: 'C', octave: 6 }),
+              piano.pitch({ stepValue: 'C', octave: 7 }),
             ],
           },
           {
             name: 'C',
-            notes: [
-              piano.text2Note('c3#') as Note,
-              piano.text2Note('c4#') as Note,
-              piano.text2Note('c5#') as Note,
-              piano.text2Note('c6#') as Note,
+            pitches: [
+              piano.text2pitch('c3#') as Pitch,
+              piano.text2pitch('c4#') as Pitch,
+              piano.text2pitch('c5#') as Pitch,
+              piano.text2pitch('c6#') as Pitch,
             ],
           },
           {
             name: 'C D E F G A B',
-            notes: [
-              piano.text2Note('c') as Note,
-              piano.text2Note('d') as Note,
-              piano.text2Note('e') as Note,
-              piano.text2Note('f') as Note,
-              piano.text2Note('g') as Note,
-              piano.text2Note('a') as Note,
-              piano.text2Note('b') as Note,
-              piano.text2Note('c5') as Note,
-              piano.text2Note('d5') as Note,
-              piano.text2Note('e5') as Note,
-              piano.text2Note('f5') as Note,
-              piano.text2Note('g5') as Note,
-              piano.text2Note('a5') as Note,
-              piano.text2Note('b5') as Note,
+            pitches: [
+              piano.text2pitch('c3#') as Pitch,
+              piano.text2pitch('d3#') as Pitch,
+              piano.text2pitch('e3#') as Pitch,
+              piano.text2pitch('f3#') as Pitch,
+              piano.text2pitch('g3#') as Pitch,
+              piano.text2pitch('a3#') as Pitch,
+              piano.text2pitch('b3#') as Pitch,
+              piano.text2pitch('c##') as Pitch,
+              piano.text2pitch('d##') as Pitch,
+              piano.text2pitch('e##') as Pitch,
+              piano.text2pitch('f##') as Pitch,
+              piano.text2pitch('g##') as Pitch,
+              piano.text2pitch('a##') as Pitch,
+              piano.text2pitch('b##') as Pitch,
+              piano.text2pitch('c5b') as Pitch,
+              piano.text2pitch('d5b') as Pitch,
+              piano.text2pitch('e5b') as Pitch,
+              piano.text2pitch('f5b') as Pitch,
+              piano.text2pitch('g5b') as Pitch,
+              piano.text2pitch('a5b') as Pitch,
+              piano.text2pitch('b5b') as Pitch,
+              piano.text2pitch('c6bb') as Pitch,
+              piano.text2pitch('d6bb') as Pitch,
+              piano.text2pitch('e6bb') as Pitch,
+              piano.text2pitch('f6bb') as Pitch,
+              piano.text2pitch('g6bb') as Pitch,
+              piano.text2pitch('a6bb') as Pitch,
+              piano.text2pitch('b6bb') as Pitch,
             ],
           },
         ]}
@@ -97,39 +111,39 @@ export default function Home() {
 }
 
 const flatMajorScales = [
-  piano.note({ stepValue: 'C' }),
-  piano.note({ stepValue: 'F' }),
-  piano.note({ stepValue: 'B', accidental: 'flat' }),
-  piano.note({ stepValue: 'E', accidental: 'flat' }),
-  piano.note({ stepValue: 'A', accidental: 'flat' }),
-  piano.note({ stepValue: 'D', accidental: 'flat' }),
-  piano.note({ stepValue: 'G', accidental: 'flat' }),
+  piano.pitch({ stepValue: 'C' }),
+  piano.pitch({ stepValue: 'F' }),
+  piano.pitch({ stepValue: 'B', accidental: 'flat' }),
+  piano.pitch({ stepValue: 'E', accidental: 'flat' }),
+  piano.pitch({ stepValue: 'A', accidental: 'flat' }),
+  piano.pitch({ stepValue: 'D', accidental: 'flat' }),
+  piano.pitch({ stepValue: 'G', accidental: 'flat' }),
 ].map((note) => piano.scale(note, 'major') as Scale);
 
 const flatMinorScales = [
-  piano.note({ stepValue: 'A' }),
-  piano.note({ stepValue: 'D' }),
-  piano.note({ stepValue: 'G' }),
-  piano.note({ stepValue: 'C' }),
-  piano.note({ stepValue: 'F' }),
-  piano.note({ stepValue: 'B', accidental: 'flat' }),
-  piano.note({ stepValue: 'E', accidental: 'flat' }),
+  piano.pitch({ stepValue: 'A' }),
+  piano.pitch({ stepValue: 'D' }),
+  piano.pitch({ stepValue: 'G' }),
+  piano.pitch({ stepValue: 'C' }),
+  piano.pitch({ stepValue: 'F' }),
+  piano.pitch({ stepValue: 'B', accidental: 'flat' }),
+  piano.pitch({ stepValue: 'E', accidental: 'flat' }),
 ].map((note) => piano.scale(note, 'minor') as Scale);
 
 const sharpMajorScales = [
-  piano.note({ stepValue: 'B' }),
-  piano.note({ stepValue: 'E' }),
-  piano.note({ stepValue: 'A' }),
-  piano.note({ stepValue: 'D' }),
-  piano.note({ stepValue: 'G' }),
+  piano.pitch({ stepValue: 'B' }),
+  piano.pitch({ stepValue: 'E' }),
+  piano.pitch({ stepValue: 'A' }),
+  piano.pitch({ stepValue: 'D' }),
+  piano.pitch({ stepValue: 'G' }),
 ].map((note) => piano.scale(note, 'major') as Scale);
 
 const sharpMinorScales = [
-  piano.note({ stepValue: 'G', accidental: 'sharp' }),
-  piano.note({ stepValue: 'C', accidental: 'sharp' }),
-  piano.note({ stepValue: 'F', accidental: 'sharp' }),
-  piano.note({ stepValue: 'B' }),
-  piano.note({ stepValue: 'E' }),
+  piano.pitch({ stepValue: 'G', accidental: 'sharp' }),
+  piano.pitch({ stepValue: 'C', accidental: 'sharp' }),
+  piano.pitch({ stepValue: 'F', accidental: 'sharp' }),
+  piano.pitch({ stepValue: 'B' }),
+  piano.pitch({ stepValue: 'E' }),
 ].map((note) => piano.scale(note, 'minor') as Scale);
 
 const CircleOfFifths = () => {
@@ -145,7 +159,7 @@ const CircleOfFifths = () => {
         <div className="flex gap-2">
           {flatMajorScales.map((scale, i) => (
             <div key={i}>
-              <Staff
+              <Score
                 size={10}
                 minWidth={250}
                 keySignature={{ fifths: scale.fifths }}
@@ -166,7 +180,7 @@ const CircleOfFifths = () => {
         <div className="flex gap-2">
           {flatMinorScales.map((scale, i) => (
             <div key={i}>
-              <Staff
+              <Score
                 size={10}
                 minWidth={250}
                 keySignature={{ fifths: scale.fifths }}
@@ -188,7 +202,7 @@ const CircleOfFifths = () => {
         <div className="flex gap-2">
           {sharpMajorScales.map((scale, i) => (
             <div key={i}>
-              <Staff
+              <Score
                 size={10}
                 minWidth={250}
                 keySignature={{ fifths: scale.fifths }}
@@ -209,7 +223,7 @@ const CircleOfFifths = () => {
         <div className="flex gap-2">
           {sharpMinorScales.map((scale, i) => (
             <div key={i}>
-              <Staff
+              <Score
                 size={10}
                 minWidth={250}
                 keySignature={{ fifths: scale.fifths }}

@@ -1,13 +1,13 @@
 import { chordTypes } from './consts';
-import { Note, getAllNoteByKey, getBaseNoteByNumber, note } from './note';
+import { Pitch, getAllPitchByKey, getBasePitchByNumber, pitch } from './pitch';
 import { Chord, ChordTypeId } from './types';
 
 export function chord(
-  pianoNote: Note,
+  pianoNote: Pitch,
   type: ChordTypeId,
   inversion: number = 0,
 ): Chord {
-  const pianoNotes: Note[] = [];
+  const pianoNotes: Pitch[] = [];
   const chordType = chordTypes[type];
   const intervals = [
     {
@@ -18,9 +18,9 @@ export function chord(
   ];
 
   intervals.forEach((interval, i) => {
-    const _nextNumber = pianoNote.number + interval.number - 1;
+    const _nextNumber = pianoNote.step.number + interval.number - 1;
     const nextNumber = _nextNumber % 7;
-    const nextBaseNote = getBaseNoteByNumber(nextNumber);
+    const nextBaseNote = getBasePitchByNumber(nextNumber);
     let nextOctave = pianoNote.octave + Math.floor(_nextNumber / 7);
     let nextInteger = pianoNote.integer + interval.integer;
     if (inversion && i < inversion) {
@@ -28,7 +28,7 @@ export function chord(
       nextInteger += 12;
     }
 
-    const nextNote = note({
+    const nextNote = pitch({
       stepValue: nextBaseNote.value,
       octave: nextOctave,
       integer: nextInteger,
@@ -54,7 +54,7 @@ export function chord(
     accidental: pianoNote.accidental,
     suffix,
     type: chordType,
-    notes: pianoNotes,
+    pitches: pianoNotes,
   };
 }
 
@@ -73,7 +73,7 @@ export function cleanChordText(input: string): string {
 }
 
 export function getAllChordByKey(): Record<string, Chord> {
-  const notes = getAllNoteByKey();
+  const notes = getAllPitchByKey();
   const chords: Record<string, Chord> = {};
   Object.keys(notes).forEach((noteKey) => {
     const note = notes[noteKey];

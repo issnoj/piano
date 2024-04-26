@@ -7,7 +7,7 @@ export const Main = () => {
   return (
     <div>
       <h3 className="mb-4 text-lg font-semibold">メモの作成</h3>
-      <FormChordMemo title={''} chords={'C D E F G A B'} />
+      <FormChordMemo title={''} chords={'e6'} />
     </div>
   );
 };

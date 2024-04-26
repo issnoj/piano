@@ -1,13 +1,13 @@
 import { scaleTypes } from './consts';
-import { Note, getBaseNoteByNumber, note } from './note';
+import { Pitch, getBasePitchByNumber, pitch } from './pitch';
 import { Accidental, Scale, ScaleTypeId } from './types';
 
-export function scale(pianoNote: Note, type: ScaleTypeId): Scale | null {
+export function scale(pianoNote: Pitch, type: ScaleTypeId): Scale | null {
   if (notExistScale(pianoNote, type)) {
     return null;
   }
 
-  const pianoNotes: Note[] = [pianoNote];
+  const pianoNotes: Pitch[] = [pianoNote];
   const scaleType = scaleTypes[type];
   let sumInterval = 0;
   let fifths = 0;
@@ -20,15 +20,15 @@ export function scale(pianoNote: Note, type: ScaleTypeId): Scale | null {
   }
 
   scaleType.intervals.forEach((interval, index) => {
-    const _nextNumber = pianoNote.number + index + 1;
+    const _nextNumber = pianoNote.step.number + index + 1;
     const nextNumber = _nextNumber % 7;
-    const nextBaseNote = getBaseNoteByNumber(nextNumber);
+    const nextBaseNote = getBasePitchByNumber(nextNumber);
     const nextOctave = pianoNote.octave + Math.floor(_nextNumber / 7);
 
     sumInterval += interval;
     const nextInteger = pianoNote.integer + sumInterval;
 
-    const nextNote = note({
+    const nextNote = pitch({
       stepValue: nextBaseNote.value,
       octave: nextOctave,
       integer: nextInteger,
@@ -78,7 +78,7 @@ function calcFifths(accidental: Accidental) {
 }
 
 function notExistScale(
-  pianoNote: Note,
+  pianoNote: Pitch,
   type: ScaleTypeId,
 ): NotExistScale | null {
   const checkValue = `${pianoNote.step.value}${pianoNote.accidental ?? ''}.${type}`;

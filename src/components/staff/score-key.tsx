@@ -1,6 +1,6 @@
 import { FlatIcon, SharpIcon } from './icons';
 
-export const KeySignature = ({
+export const ScoreKey = ({
   translateX,
   fifths,
 }: {
@@ -18,7 +18,7 @@ export const KeySignature = ({
           <FlatIcon
             key={i}
             style={{
-              transform: `translate(${translateX + i * 20}px, ${flats[i]}px)`,
+              transform: `translate(${translateX + i * 13}px, ${flats[i]}px)`,
             }}
           />
         ))}
@@ -32,7 +32,7 @@ export const KeySignature = ({
         <SharpIcon
           key={i}
           style={{
-            transform: `translate(${translateX + i * 20}px, ${sharps[i]}px)`,
+            transform: `translate(${translateX + i * 16}px, ${sharps[i]}px)`,
           }}
         />
       ))}

@@ -1,5 +1,5 @@
 import { piano } from '@/lib/piano';
-import { Staff } from '@/components/staff/staff';
+import { Score } from '@/components/staff/score';
 import { Accidental, StepValue } from '@/lib/piano/types';
 
 type Chord = {
@@ -31,7 +31,7 @@ export default function Page() {
       <table>
         <tbody>
           {chords.map((v, i) => {
-            const pianoNote = piano.note({
+            const pianoNote = piano.pitch({
               stepValue: v.id,
               octave: v.octave,
               accidental: v.accidental,
@@ -42,7 +42,7 @@ export default function Page() {
                   {pianoNote.getName('en')}
                 </th>
                 <td className="pb-8">
-                  <Staff
+                  <Score
                     size={9}
                     id="test"
                     noteAreaWidth={120}

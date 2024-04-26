@@ -1,10 +1,10 @@
 import { scaleTypes } from './consts';
-import { Note } from './note';
+import { Pitch } from './pitch';
 import { scale } from './scale';
 
 describe('piano.scale', () => {
   test('存在しないスケール', () => {
-    const note = new Note({
+    const note = new Pitch({
       stepValue: 'B',
       octave: 4,
       accidental: 'sharp',
@@ -15,7 +15,7 @@ describe('piano.scale', () => {
   });
 
   test('major', () => {
-    const note = new Note({
+    const note = new Pitch({
       stepValue: 'E',
       octave: 4,
       accidental: 'flat',
@@ -33,7 +33,7 @@ describe('piano.scale', () => {
   });
 
   test('major 2', () => {
-    const note = new Note({
+    const note = new Pitch({
       stepValue: 'C',
       octave: 4,
     });
@@ -50,7 +50,7 @@ describe('piano.scale', () => {
   });
 
   test('minor', () => {
-    const note = new Note({
+    const note = new Pitch({
       stepValue: 'G',
       octave: 4,
       accidental: 'sharp',
@@ -66,40 +66,40 @@ describe('piano.scale', () => {
     expect(result.nameDe).toBe('Gis Moll');
     expect(result.type).toBe(scaleTypes.minor);
     expect(result.notes).toStrictEqual([
-      new Note({
+      new Pitch({
         stepValue: 'G',
         octave: 4,
         accidental: 'sharp',
       }),
-      new Note({
+      new Pitch({
         stepValue: 'A',
         octave: 4,
         accidental: 'sharp',
       }),
-      new Note({
+      new Pitch({
         stepValue: 'B',
         octave: 4,
       }),
-      new Note({
+      new Pitch({
         stepValue: 'C',
         octave: 5,
         accidental: 'sharp',
       }),
-      new Note({
+      new Pitch({
         stepValue: 'D',
         octave: 5,
         accidental: 'sharp',
       }),
-      new Note({
+      new Pitch({
         stepValue: 'E',
         octave: 5,
       }),
-      new Note({
+      new Pitch({
         stepValue: 'F',
         octave: 5,
         accidental: 'sharp',
       }),
-      new Note({
+      new Pitch({
         stepValue: 'G',
         octave: 5,
         accidental: 'sharp',

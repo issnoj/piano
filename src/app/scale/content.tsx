@@ -3,7 +3,7 @@
 import { StepValue, Scale, ScaleTypeId } from '@/lib/piano/types';
 import { Filter } from './filter';
 import { piano } from '@/lib/piano';
-import { Staff } from '@/components/staff/staff';
+import { Score } from '@/components/staff/score';
 import React from 'react';
 import { cn } from '@/lib/utils';
 
@@ -58,7 +58,7 @@ export const ScalePageContent = () => {
         octave = 3;
       }
       filterState.accidentals.forEach((accidental) => {
-        const pianoNote = piano.note({
+        const pianoNote = piano.pitch({
           stepValue: baseNoteId,
           octave,
           accidental: accidental === '' ? undefined : accidental,
@@ -86,12 +86,12 @@ export const ScalePageContent = () => {
         {scales.map((scale, i) => (
           <div key={i} className="flex flex-col gap-1">
             <ScaleHeader scale={scale} />
-            <Staff
+            <Score
               className="p-1"
               size={8}
               fontSize={32}
               chords={scale.notes.map((note) => ({
-                notes: [note],
+                pitches: [note],
                 name: note.getName('en'),
               }))}
             />
@@ -115,7 +115,7 @@ const ScaleHeader = ({ scale }: { scale: Scale }) => {
       )}
     >
       <div className="flex gap-4">
-        <Staff
+        <Score
           size={7}
           keySignature={{ fifths: scale.fifths }}
           minWidth={250}

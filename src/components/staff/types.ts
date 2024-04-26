@@ -1,40 +1,54 @@
-import { Note } from '@/lib/piano/note';
+import { Pitch } from '@/lib/piano/pitch';
 import { Chord } from '@/lib/piano/types';
 
-export type StaffType = {
+export type ScoreType = {
   width: number;
   height: number;
   translateY: number;
-  shardPropsList: StaffShardProps[];
+  shardPropsList: ScoreShardProps[];
 };
 
-export type StaffAttributesProps = {
+export type ScoreShardProps = {
+  width: number;
+  height: number;
+  translateY: number;
+  measurePropsList: ScoreMeasureProps[];
+};
+
+export type ScoreMeasureProps = {
+  width: number;
+  height: number;
+  attributesProps: ScoreMeasureAttributesProps;
+  noteListPropsList: Omit<ScoreNoteListProps, 'height'>[];
+};
+
+export type ScoreMeasureAttributesProps = {
+  width: number;
+  height: number;
   keySignature?: { fifths: number };
   showClef: boolean;
-  width: number;
-  height: number;
 };
 
-export type StaffShardProps = {
-  attributesProps: StaffAttributesProps;
-  chordPropsList: Omit<StaffChordProps, 'height'>[];
-  width: number;
-  height: number;
-  translateY: number;
-};
-
-export type StaffChordProps = {
-  notePropsList: StaffNoteProps[];
+export type ScoreNoteListProps = {
+  notePropsList: ScoreNoteProps[];
+  noteLines: NoteLine[];
   chord: Chord;
   fontSize: number;
-  x: number;
+  translateX: number;
   width: number;
   height: number;
+  minTranslateX: number;
 };
 
-export type StaffNoteProps = {
-  note: Note;
+export type ScoreNoteProps = {
+  pitch: Pitch;
   translateY: number;
   noteTranslateX: number;
-  acciTranslateX: number;
+  accidentalTranslateX: number;
+  accidentalTranslateY: number;
+};
+
+export type NoteLine = {
+  position: number;
+  number: number;
 };
