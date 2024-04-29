@@ -10,7 +10,9 @@ export const Header = ({ className }: { className?: string }) => {
   return (
     <header className={cn(className)}>
       <div className="container flex h-12 items-center">
-        <h1 className="font-bold">Pianote</h1>
+        <h1 className="font-bold">
+          <Link href="/">Pianote</Link>
+        </h1>
         <div className="ml-6 flex gap-3">
           <GlobalMenuLink href="/chord/memo">コードのメモ帳</GlobalMenuLink>
           <GlobalMenuLink href="/chord/search">コード検索</GlobalMenuLink>

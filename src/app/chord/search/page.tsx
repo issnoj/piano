@@ -1,5 +1,5 @@
 import { piano } from '@/lib/piano';
-import { Score } from '@/components/staff/score';
+import { Score } from '@/components/score/score';
 import { Accidental, StepValue } from '@/lib/piano/types';
 
 type Chord = {
@@ -45,22 +45,43 @@ export default function Page() {
                   <Score
                     size={9}
                     id="test"
-                    noteAreaWidth={120}
-                    chords={[
-                      piano.chord(pianoNote, 'majorTriad'),
-                      piano.chord(pianoNote, 'majorSixth'),
-                      piano.chord(pianoNote, 'dominantSeventh'),
-                      piano.chord(pianoNote, 'majorSeventh'),
-                      piano.chord(pianoNote, 'augmentedTriad'),
-                      piano.chord(pianoNote, 'augmentedSeventh'),
-                      piano.chord(pianoNote, 'minorTriad'),
-                      piano.chord(pianoNote, 'minorSixth'),
-                      piano.chord(pianoNote, 'minorSeventh'),
-                      piano.chord(pianoNote, 'minorMajorSeventh'),
-                      piano.chord(pianoNote, 'diminishedTriad'),
-                      piano.chord(pianoNote, 'diminishedSeventh'),
-                      piano.chord(pianoNote, 'halfDiminishedSeventh'),
-                    ]}
+                    data={{
+                      shards: [
+                        {
+                          measures: [
+                            {
+                              attributes: {
+                                keySignature: { fifths: 0 },
+                                showClef: true,
+                              },
+                              content: {
+                                notes: [
+                                  piano.chord(pianoNote, 'majorTriad'),
+                                  piano.chord(pianoNote, 'majorSixth'),
+                                  piano.chord(pianoNote, 'dominantSeventh'),
+                                  piano.chord(pianoNote, 'majorSeventh'),
+                                  piano.chord(pianoNote, 'augmentedTriad'),
+                                  piano.chord(pianoNote, 'augmentedSeventh'),
+                                  piano.chord(pianoNote, 'minorTriad'),
+                                  piano.chord(pianoNote, 'minorSixth'),
+                                  piano.chord(pianoNote, 'minorSeventh'),
+                                  piano.chord(pianoNote, 'minorMajorSeventh'),
+                                  piano.chord(pianoNote, 'diminishedTriad'),
+                                  piano.chord(pianoNote, 'diminishedSeventh'),
+                                  piano.chord(
+                                    pianoNote,
+                                    'halfDiminishedSeventh',
+                                  ),
+                                ].map((chord) => ({
+                                  name: chord.name,
+                                  pitches: chord.pitches,
+                                })),
+                              },
+                            },
+                          ],
+                        },
+                      ],
+                    }}
                   />
                 </td>
               </tr>

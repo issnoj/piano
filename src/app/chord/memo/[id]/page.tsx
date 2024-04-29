@@ -4,8 +4,8 @@ import {
   MemoChord,
   useChordMemoContext,
 } from '@/components/memo/chord-memo-provider';
-import { Score } from '@/components/staff/score';
-import { piano } from '@/lib/piano';
+import { input2scoreData } from '@/components/memo/input-chord';
+import { Score } from '@/components/score/score';
 import React from 'react';
 
 export default function Page({ params }: { params: { id: string } }) {
@@ -34,7 +34,7 @@ export default function Page({ params }: { params: { id: string } }) {
         <Score
           minWidth={185}
           className={'w-full'}
-          chords={memoChord.chords ? piano.text2Chords(memoChord.chords) : []}
+          data={input2scoreData(memoChord.chords)}
         />
       </div>
     </div>

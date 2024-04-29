@@ -1,45 +1,34 @@
 import { cn } from '@/lib/utils';
-import { Chord } from '@/lib/piano/types';
 import { STAFF_LINE_HEIGHT } from './consts';
 import { ScoreShard } from './score-shard';
-import { getScoreData } from '@/components/staff/utils';
+import { getScoreProps } from '@/components/score/utils';
+import { ScoreData } from './types';
 
 type Props = {
   id?: string;
   className?: string;
-  chords?: Chord[];
+  data: ScoreData;
   size?: number;
-  noteAreaWidth?: number;
   fontSize?: number;
-  keySignature?: { fifths: number };
   minWidth?: number;
-  minHeight?: number;
-  showClef?: boolean;
 };
 
 export const Score = ({
   id,
   className,
-  chords = [],
+  data,
   size = 20,
   fontSize = 28,
-  keySignature,
   minWidth = 0,
 }: Props) => {
   const scale = size / STAFF_LINE_HEIGHT;
-  const scoreData = getScoreData({
-    keySignature,
-    chords,
-    fontSize,
-  });
-
+  const scoreData = getScoreProps({ data, fontSize });
   const height = scoreData.height;
   const width = Math.max(scoreData.width, minWidth);
-
   return (
     <svg
       id={id}
-      className={cn('overflow-visible', className)}
+      className={cn('overflow-visible ring-1', className)}
       width={width * scale}
       height={height * scale}
       viewBox={`0 0 ${width} ${height}`}
@@ -48,6 +37,14 @@ export const Score = ({
       {scoreData.shardPropsList.map((props, i) => (
         <ScoreShard key={i} {...props} />
       ))}
+      <g style={{ translate: `0 0px` }}>
+        <rect
+          width={width}
+          height={height}
+          stroke={'rgba(0,0,255,5)'}
+          strokeWidth={0}
+        />
+      </g>
     </svg>
   );
 };

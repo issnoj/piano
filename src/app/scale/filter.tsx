@@ -2,7 +2,7 @@ import React from 'react';
 import { cn } from '@/lib/utils';
 import { steps, scaleTypes } from '@/lib/piano/consts';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
-import { FilterState } from './content';
+import { FilterState } from './search/content';
 
 type Props = {
   initialState: FilterState;

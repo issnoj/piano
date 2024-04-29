@@ -6,25 +6,25 @@ import {
   NoteIcon,
   SharpIcon,
 } from './icons';
-import { ScoreNoteProps } from './types';
+import { ScoreNoteheadProps } from './types';
 
-export const ScoreNote = ({
+export const ScoreNotehead = ({
   pitch,
   translateY,
-  noteTranslateX,
+  noteheadTranslateX,
   accidentalTranslateX,
   accidentalTranslateY,
-}: ScoreNoteProps) => {
+}: ScoreNoteheadProps) => {
   return (
     <g
-      data-type={'note'}
+      data-type={'notehead'}
       style={{
         translate: `0 ${translateY}px`,
       }}
     >
       <g
         style={{
-          translate: `${noteTranslateX}px`,
+          translate: `${noteheadTranslateX}px`,
         }}
       >
         <NoteIcon />

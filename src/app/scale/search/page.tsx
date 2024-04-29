@@ -1,4 +1,4 @@
-import { ScalePageContent } from '../content';
+import { ScalePageContent } from './content';
 
 export default function Page() {
   return (

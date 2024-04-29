@@ -1,9 +1,9 @@
 'use client';
 
 import { StepValue, Scale, ScaleTypeId } from '@/lib/piano/types';
-import { Filter } from './filter';
+import { Filter } from '../filter';
 import { piano } from '@/lib/piano';
-import { Score } from '@/components/staff/score';
+import { Score } from '@/components/score/score';
 import React from 'react';
 import { cn } from '@/lib/utils';
 
@@ -90,10 +90,26 @@ export const ScalePageContent = () => {
               className="p-1"
               size={8}
               fontSize={32}
-              chords={scale.notes.map((note) => ({
-                pitches: [note],
-                name: note.getName('en'),
-              }))}
+              data={{
+                shards: [
+                  {
+                    measures: [
+                      {
+                        attributes: {
+                          keySignature: { fifths: 0 },
+                          showClef: true,
+                        },
+                        content: {
+                          notes: scale.notes.map((note) => ({
+                            pitches: [note],
+                            name: note.getName('en'),
+                          })),
+                        },
+                      },
+                    ],
+                  },
+                ],
+              }}
             />
           </div>
         ))}
@@ -117,8 +133,24 @@ const ScaleHeader = ({ scale }: { scale: Scale }) => {
       <div className="flex gap-4">
         <Score
           size={7}
-          keySignature={{ fifths: scale.fifths }}
           minWidth={250}
+          data={{
+            shards: [
+              {
+                measures: [
+                  {
+                    attributes: {
+                      keySignature: { fifths: scale.fifths },
+                      showClef: true,
+                    },
+                    content: {
+                      notes: [],
+                    },
+                  },
+                ],
+              },
+            ],
+          }}
         />
         <div>
           <div>
